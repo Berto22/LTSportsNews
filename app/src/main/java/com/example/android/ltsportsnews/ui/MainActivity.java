@@ -18,9 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
+    //@SuppressWarnings("WeakerAccess")
+    //@BindView(R.id.recyclerView)
+    //RecyclerView mRecyclerView;
 
     NewsAdapter adapter;
 
@@ -30,21 +30,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        RecyclerView recl = (RecyclerView) findViewById(R.id.recyclerView);
         adapter = new NewsAdapter(this);
-
-        getLoaderManager().initLoader(0, null, this);
 
         //refresh();
 
         if (savedInstanceState == null) {
             refresh();
         }
+        getLoaderManager().initLoader(0, null, this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        recl.setLayoutManager(layoutManager);
 
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView.setAdapter(adapter);
+        recl.setAdapter(adapter);
 
 
     }

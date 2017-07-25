@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * Created by berto on 7/24/2017.
@@ -46,7 +47,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         mCursor.moveToPosition(position);
 
-        holder.titleTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL));
+        holder.titleTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE));
+        Timber.d(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE));
         holder.authorTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_AUTHOR));
         holder.publishDateTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_PUBLISH_DATE));
 

@@ -5,21 +5,28 @@ import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.database.DatabaseUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.android.ltsportsnews.data.ItemsContract;
+import com.example.android.ltsportsnews.data.NewsItemsProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 import timber.log.Timber;
+
+import static android.R.attr.handle;
 
 /**
  * Created by berto on 7/23/2017.
@@ -46,6 +53,7 @@ public class NewsUpdaterService extends IntentService {
         sendBroadcast(new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
 
         ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
+
         Uri uri = ItemsContract.NewsItemsEntry.CONTENT_URI;
 
         try {
@@ -58,6 +66,9 @@ public class NewsUpdaterService extends IntentService {
                 ContentValues values = new ContentValues();
                 JSONObject object = jsonArray.getJSONObject(i);
                 values.put(ItemsContract.NewsItemsEntry.COLUMN_TITLE, object.getString("title" ));
+                String sTitle = object.getString("title");
+                Timber.d(sTitle);
+                Log.d(TAG, sTitle);
                 values.put(ItemsContract.NewsItemsEntry.COLUMN_AUTHOR, object.getString("author"));
                 values.put(ItemsContract.NewsItemsEntry.COLUMN_DESCRIPTION, object.getString("description"));
                 values.put(ItemsContract.NewsItemsEntry.COLUMN_ARTICLE_URL, object.getString("url"));
@@ -65,7 +76,10 @@ public class NewsUpdaterService extends IntentService {
                 values.put(ItemsContract.NewsItemsEntry.COLUMN_PUBLISH_DATE, object.getString("publishedAt"));
 
                 cpo.add(ContentProviderOperation.newInsert(uri).withValues(values).build());
+
             }
+
+
             getContentResolver().applyBatch(ItemsContract.AUTHORITY, cpo);
 
         } catch (JSONException | RemoteException | OperationApplicationException e) {

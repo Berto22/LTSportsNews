@@ -19,6 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <service android:name=".remote.NewsUpdaterService"
+            android:exported="false" />
+        
+        <provider
+            android:authorities="com.example.android.ltsportsnews"
+            android:name=".data.NewsItemsProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

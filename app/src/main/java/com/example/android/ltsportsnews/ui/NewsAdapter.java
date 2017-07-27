@@ -72,24 +72,29 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.title_textView)
-        TextView titleTextView;
+        private TextView titleTextView;
 
         @BindView(R.id.author_textView)
-        TextView authorTextView;
+        private TextView authorTextView;
 
         @BindView(R.id.publish_date_textView)
-        TextView publishDateTextView;
+        private TextView publishDateTextView;
 
         @BindView(R.id.article_imageView)
-        ImageView articleImageView;
+        private ImageView articleImageView;
 
         @BindView(R.id.description_textView)
-        TextView descriptionTextView;
+        private TextView descriptionTextView;
 
 
         NewsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            /*titleTextView = (TextView)view.findViewById(R.id.title_textView);
+            authorTextView = (TextView)view.findViewById(R.id.author_textView);
+            publishDateTextView =(TextView)view.findViewById(R.id.publish_date_textView);
+            articleImageView = (ImageView)view.findViewById(R.id.article_imageView);
+            descriptionTextView = (TextView)view.findViewById(R.id.description_textView); */
         }
 
         @Override

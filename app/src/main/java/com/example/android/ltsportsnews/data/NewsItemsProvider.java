@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaCasException;
@@ -40,7 +41,16 @@ public class NewsItemsProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        //return null;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case NEWS:
+                return ItemsContract.NewsItemsEntry.CONTENT_TYPE;
+            case NEWS_WITH_ID:
+                return ItemsContract.NewsItemsEntry.CONTENT_ITEM_TYPE;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
     }
 
     @Nullable
@@ -77,6 +87,8 @@ public class NewsItemsProvider extends ContentProvider {
         }
 
         returnCursor.setNotificationUri(getContext().getContentResolver(), uri);
+        DatabaseUtils.dumpCursor(returnCursor);
+
         return returnCursor;
     }
 
@@ -89,12 +101,14 @@ public class NewsItemsProvider extends ContentProvider {
 
         switch (match) {
             case NEWS:
-                long id = db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, contentValues);
+                /*long id = db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, contentValues);
                 if (id > 0) {
                     returnUri = ItemsContract.NewsItemsEntry.buildNewsUri(id);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
-                }
+                }*/
+                db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, contentValues);
+                returnUri = ItemsContract.NewsItemsEntry.CONTENT_URI;
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

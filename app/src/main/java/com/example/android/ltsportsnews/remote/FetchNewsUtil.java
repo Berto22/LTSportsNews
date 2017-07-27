@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import okhttp3.OkHttpClient;
@@ -25,6 +26,7 @@ public class FetchNewsUtil {
 
     public static JSONArray fetchJsonArray() {
         String jsonArrayResponse = null;
+
         try {
             jsonArrayResponse = fetchNews(Config.BASE_URL);
         } catch (IOException e) {

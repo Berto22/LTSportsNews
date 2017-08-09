@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:clickable="true"
+    android:focusable="true">
 
-    <TextView
-        android:id="@+id/title_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="title"/>
-    <TextView
-        android:id="@+id/author_textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="author"/>
-    <TextView
-        android:id="@+id/publish_date_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="date"/>
-    <ImageView
-        android:id="@+id/article_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/description_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="description"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="title"
+            android:padding="4dp"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/author_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="author"
+            android:padding="4dp"/>
+        <TextView
+            android:id="@+id/publish_date_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="date"
+            android:padding="4dp"/>
+        <ImageView
+            android:id="@+id/article_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+        <TextView
+            android:id="@+id/description_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="description"
+            android:padding="4dp"/>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

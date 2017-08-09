@@ -22,11 +22,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Handler;
 
 import timber.log.Timber;
 
 import static android.R.attr.handle;
+import static java.security.AccessController.getContext;
 
 /**
  * Created by berto on 7/23/2017.
@@ -53,8 +55,12 @@ public class NewsUpdaterService extends IntentService {
         sendBroadcast(new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
 
         ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
+        //Vector<ContentValues> cVVector = new Vector<ContentValues>();
 
         Uri uri = ItemsContract.NewsItemsEntry.CONTENT_URI;
+
+        //Delete all items
+        cpo.add(ContentProviderOperation.newDelete(uri).build());
 
         try {
             JSONArray jsonArray = FetchNewsUtil.fetchJsonArray();
@@ -77,7 +83,13 @@ public class NewsUpdaterService extends IntentService {
 
                 cpo.add(ContentProviderOperation.newInsert(uri).withValues(values).build());
 
+                //cVVector.add(values);
+
             }
+
+            //ContentValues[] cvArray = new ContentValues[cVVector.size()];
+            //cVVector.toArray(cvArray);
+            //getContentResolver().bulkInsert(ItemsContract.NewsItemsEntry.CONTENT_URI, cvArray);
 
 
             getContentResolver().applyBatch(ItemsContract.AUTHORITY, cpo);

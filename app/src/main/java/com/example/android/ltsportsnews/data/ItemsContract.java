@@ -18,6 +18,8 @@ public class ItemsContract {
     public static final String AUTHORITY = "com.example.android.ltsportsnews";
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
     public static final String PATH = "news";
+    public static final String PATH_TEAMS = "teams";
+
 
     private ItemsContract () {
         throw new AssertionError("No contract instance");
@@ -60,6 +62,33 @@ public class ItemsContract {
         public static final String DEFAULT_SORT = COLUMN_PUBLISH_DATE + " DESC";
 
         public static Uri buildNewsUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+    }
+
+    public static final class TeamsEntry implements BaseColumns {
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_TEAMS).build();
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/"
+                + AUTHORITY + "/" + PATH_TEAMS;
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/"
+                + AUTHORITY + "/" + PATH_TEAMS;
+
+        public static final String _ID = "id";
+        public static final String COLUMN_TEAM_NAME = "team_name";
+        public static final String LOGO_IMAGE_RESOURCE_ID = "team_logo_resourceId";
+        public static final String TABLE_NAME = "teams";
+
+        public static final int POSITION_ID = 0;
+        public static final int POSITION_TEAM_NAME = 1;
+        public static final int POSITION_TEAM_LOGO = 3;
+        public static final ImmutableList<String> TEAMS_COLUMNS = ImmutableList.of(
+                _ID,
+                COLUMN_TEAM_NAME,
+                LOGO_IMAGE_RESOURCE_ID
+        );
+        public static final String DEFAULT_SORT = COLUMN_TEAM_NAME + " DESC";
+
+        public static Uri buildTeamsEntryUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
     }

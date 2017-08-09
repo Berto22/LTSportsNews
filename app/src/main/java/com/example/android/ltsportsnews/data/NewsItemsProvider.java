@@ -21,12 +21,16 @@ import static android.R.attr.y;
 public class NewsItemsProvider extends ContentProvider {
     public static final int NEWS = 100;
     public static final int NEWS_WITH_ID = 101;
+    public static final int MY_TEAM = 200;
+    public static final int MY_TEAM_WITH_ID = 201;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     public static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(ItemsContract.AUTHORITY, ItemsContract.PATH, NEWS);
-        uriMatcher.addURI(ItemsContract.AUTHORITY, ItemsContract.PATH + "/*", NEWS);
+        uriMatcher.addURI(ItemsContract.AUTHORITY, ItemsContract.PATH + "/*", NEWS_WITH_ID);
+        uriMatcher.addURI(ItemsContract.AUTHORITY, ItemsContract.PATH_TEAMS, MY_TEAM);
+        uriMatcher.addURI(ItemsContract.AUTHORITY, ItemsContract.PATH_TEAMS + "/*", MY_TEAM_WITH_ID );
         return uriMatcher;
     }
 
@@ -48,6 +52,10 @@ public class NewsItemsProvider extends ContentProvider {
                 return ItemsContract.NewsItemsEntry.CONTENT_TYPE;
             case NEWS_WITH_ID:
                 return ItemsContract.NewsItemsEntry.CONTENT_ITEM_TYPE;
+            case MY_TEAM:
+                return ItemsContract.TeamsEntry.CONTENT_TYPE;
+            case MY_TEAM_WITH_ID:
+                return ItemsContract.TeamsEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -82,12 +90,36 @@ public class NewsItemsProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
+
+            case MY_TEAM:
+                returnCursor = db.query(ItemsContract.TeamsEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder);
+                break;
+            case MY_TEAM_WITH_ID:
+                String teamId = uri.getPathSegments().get(1);
+                String teamSelection = "_id=?";
+                String[] teamSelectionArgs = new String[]{teamId};
+
+                returnCursor = db.query(ItemsContract.TeamsEntry.TABLE_NAME,
+                        projection,
+                        teamSelection,
+                        teamSelectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
 
         returnCursor.setNotificationUri(getContext().getContentResolver(), uri);
-        DatabaseUtils.dumpCursor(returnCursor);
+        //DatabaseUtils.dumpCursor(returnCursor);
 
         return returnCursor;
     }
@@ -110,6 +142,11 @@ public class NewsItemsProvider extends ContentProvider {
                 db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, contentValues);
                 returnUri = ItemsContract.NewsItemsEntry.CONTENT_URI;
                 break;
+
+            case MY_TEAM:
+                db.insert(ItemsContract.TeamsEntry.TABLE_NAME, null, contentValues);
+                returnUri = ItemsContract.TeamsEntry.CONTENT_URI;
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -127,6 +164,9 @@ public class NewsItemsProvider extends ContentProvider {
             case NEWS:
                 rowsDeleted =db.delete(ItemsContract.NewsItemsEntry.TABLE_NAME, selection, selectionArgs);
                 break;
+            case MY_TEAM:
+                rowsDeleted = db.delete(ItemsContract.TeamsEntry.TABLE_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -140,5 +180,49 @@ public class NewsItemsProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
+    }
+
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case NEWS:
+                db.beginTransaction();
+                int returnCount = 0;
+                try {
+                    for (ContentValues value : values) {
+                        //normalizeDate(value);
+                        long _id = db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            returnCount++;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri, null);
+                return returnCount;
+            case MY_TEAM:
+                db.beginTransaction();
+                int teamReturnCount = 0;
+                try {
+                    for (ContentValues value : values) {
+                        //normalizeDate(value);
+                        long _id = db.insert(ItemsContract.TeamsEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            teamReturnCount++;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri, null);
+                return teamReturnCount;
+            default:
+                return super.bulkInsert(uri, values);
+        }
     }
 }

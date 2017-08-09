@@ -3,7 +3,7 @@
     package="com.example.android.ltsportsnews">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -19,14 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <service android:name=".remote.NewsUpdaterService"
+
+        <service
+            android:name=".remote.NewsUpdaterService"
             android:exported="false" />
-        
+
         <provider
-            android:authorities="com.example.android.ltsportsnews"
             android:name=".data.NewsItemsProvider"
-            android:exported="false"/>
+            android:authorities="com.example.android.ltsportsnews"
+            android:exported="false" />
+
+        <activity android:name=".ui.CustomizeActivity"
+            android:label="Edit" />
     </application>
 
 </manifest>

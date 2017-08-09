@@ -9,12 +9,22 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.drawable.Drawable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.ItemsContract;
@@ -24,11 +34,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.R.attr.button;
+import static android.os.Build.VERSION_CODES.N;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity {
+    public static String TAG = MainActivity.class.toString();
+    //private NewsPagerAdapter newsPagerAdapter;
+    //private ViewPager viewPager;
     //@SuppressWarnings("WeakerAccess")
     //@BindView(R.id.recyclerView)
     //RecyclerView mRecyclerView;
+
 
     NewsAdapter adapter;
 
@@ -38,26 +53,43 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        RecyclerView recl = (RecyclerView) findViewById(R.id.recyclerView);
+        NewsPagerAdapter newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager());
+        ViewPager viewPager = (ViewPager)findViewById(R.id.container);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        viewPager.setAdapter(newsPagerAdapter);
 
-        adapter = new NewsAdapter(this);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        /*RecyclerView recl = (RecyclerView) findViewById(R.id.recyclerView);
+
+        DividerItemDecoration horizontalDecor = new DividerItemDecoration(recl.getContext(),
+                DividerItemDecoration.HORIZONTAL);
+        Drawable horizontalDivider = ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.horizontal_divider);
+        horizontalDecor.setDrawable(horizontalDivider);
+        recl.addItemDecoration(horizontalDecor);
+
+        adapter = new NewsAdapter(getApplicationContext(), null);
 
         if (savedInstanceState == null) {
             refresh();
         }
 
         getLoaderManager().initLoader(0, null, this);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recl.setLayoutManager(layoutManager);
+        int numColumns = 1;
+        //final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //recl.setLayoutManager(layoutManager);
+        recl.setLayoutManager(new GridLayoutManager(this, numColumns));
 
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recl.setAdapter(adapter);
+        recl.setAdapter(adapter); */
+
 
 
     }
 
-    private void refresh() {
+    /*private void refresh() {
         startService(new Intent(this, NewsUpdaterService.class));
     }
 
@@ -93,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //adapter.setHasStableIds(true);
         //mRecyclerView.setAdapter(adapter);
         adapter.setmCursor(cursor);
+        Log.d(TAG, "MMMMMMMM");
         DatabaseUtils.dumpCursor(cursor);
 
     }
@@ -101,5 +134,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.setmCursor(null);
 
-    }
+    } */
 }

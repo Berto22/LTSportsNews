@@ -2,6 +2,7 @@ package com.example.android.ltsportsnews.ui;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,9 @@ import com.example.android.ltsportsnews.data.SportsTeams;
 import com.example.android.ltsportsnews.remote.FetchNewsUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -33,6 +37,8 @@ public class CustomizeActivity extends AppCompatActivity {
     private static ArrayList<SportsTeams> teamList;
     private static ArrayList<Integer> myTeam;
     private static Context context;
+
+    Set<String> favTeams;
     //private static String[] myTeam;
 
 
@@ -40,6 +46,8 @@ public class CustomizeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customize_activity);
+
+        favTeams = new HashSet<String>();
 
         teamList = new ArrayList<SportsTeams>();
 
@@ -83,7 +91,7 @@ public class CustomizeActivity extends AppCompatActivity {
 
         final ContentValues values = new ContentValues();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 myTeam = new ArrayList<Integer>();
@@ -120,6 +128,44 @@ public class CustomizeActivity extends AppCompatActivity {
                 teamList.set(i, selectedTeam);
 
                 mSportsTeamAdapter.updateMyTeam(teamList);
+
+
+            }
+        }); */
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String key = "team";
+                SportsTeams selectedTeam = teamList.get(i);
+                String teamName = selectedTeam.getmTeam();
+
+                if(!favTeams.contains(teamName)) {
+                    favTeams.add(teamName);
+                }else {
+                    favTeams.remove(teamName);
+                }
+
+                SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putStringSet(key, favTeams);
+
+                editor.commit();
+
+                mSportsTeamAdapter.updateMyTeam(teamList);
+
+                //String[] teamArray = favTeams.toArray(new String[favTeams.size()]);
+                Iterator<String> iterator = favTeams.iterator();
+                while (iterator.hasNext()) {
+                    String tm = iterator.next();
+                    Log.d(TAG, "iterator " + tm);
+                }
+
+                Set<String> prefSet = pref.getStringSet(key, new HashSet<String>());
+
+                int tmSize = prefSet.size();
+
+                Log.d(TAG, "Set size " + tmSize);
 
 
             }

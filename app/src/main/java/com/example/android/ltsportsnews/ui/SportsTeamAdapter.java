@@ -1,8 +1,10 @@
 package com.example.android.ltsportsnews.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.SportsTeams;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by berto on 8/4/2017.
@@ -53,11 +57,22 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
 
         viewHolder.teamName.setText(currentTeam.getmTeam());
 
-        if(currentTeam.ismSelected())
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        Set<String> team = preferences.getStringSet("team", new HashSet<String>());
+
+        if(team.contains(currentTeam.getmTeam())) {
+            viewHolder.pickTeam.setImageResource(R.drawable.check_symbol);
+        } else {
+            viewHolder.pickTeam.setImageResource(R.drawable.add_symbol);
+        }
+
+
+        /*if(currentTeam.ismSelected())
             viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);
 
         else
-            viewHolder.pickTeam.setBackgroundResource(R.drawable.add_symbol);
+            viewHolder.pickTeam.setBackgroundResource(R.drawable.add_symbol); */
 
         //viewHolder.pickTeam.setChecked(currentTeam.ismSelected());
 

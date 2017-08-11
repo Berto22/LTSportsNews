@@ -142,15 +142,17 @@ public class CustomizeActivity extends AppCompatActivity {
 
                 if(!favTeams.contains(teamName)) {
                     favTeams.add(teamName);
+
                 }else {
                     favTeams.remove(teamName);
                 }
 
-                SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences pref = getSharedPreferences("myTeam", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putStringSet(key, favTeams);
 
                 editor.commit();
+
 
                 mSportsTeamAdapter.updateMyTeam(teamList);
 

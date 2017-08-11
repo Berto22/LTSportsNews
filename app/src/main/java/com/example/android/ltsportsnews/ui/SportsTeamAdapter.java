@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.Set;
  */
 
 public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
+    public String TAG = SportsTeamAdapter.class.getSimpleName();
     private Context mContext;
     private ArrayList<SportsTeams> teams;
 
@@ -57,14 +59,19 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
 
         viewHolder.teamName.setText(currentTeam.getmTeam());
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
 
         Set<String> team = preferences.getStringSet("team", new HashSet<String>());
 
+        int teamSetSize = team.size();
+        Log.d(TAG, "adapter set size " + teamSetSize);
+
         if(team.contains(currentTeam.getmTeam())) {
-            viewHolder.pickTeam.setImageResource(R.drawable.check_symbol);
+            //viewHolder.pickTeam.setImageResource(R.drawable.check_symbol);
+            viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);
         } else {
-            viewHolder.pickTeam.setImageResource(R.drawable.add_symbol);
+            //viewHolder.pickTeam.setImageResource(R.drawable.add_symbol);
+            viewHolder.pickTeam.setBackgroundResource(R.drawable.add_symbol);
         }
 
 

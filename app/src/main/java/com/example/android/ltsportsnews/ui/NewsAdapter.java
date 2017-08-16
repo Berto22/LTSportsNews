@@ -25,11 +25,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
  * Created by berto on 7/24/2017.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>
-
-
-
-{
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
     public static String TAG = NewsAdapter.class.toString();
 
     private final Context mContext;

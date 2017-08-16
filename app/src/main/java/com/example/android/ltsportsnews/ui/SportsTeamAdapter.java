@@ -46,7 +46,7 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.customize_list_item, parent, false);
             viewHolder.teamLogo = (ImageView)convertView.findViewById(R.id.logo_image);
             viewHolder.teamName = (TextView)convertView.findViewById(R.id.team_name);
-            viewHolder.pickTeam = (ImageView) convertView.findViewById(R.id.picker_star);
+            viewHolder.pickTeam = (TextView) convertView.findViewById(R.id.picker_star);
 
             //viewHolder.pickTeam.setOnCheckedChangeListener((CustomizeActivity) mContext);
 
@@ -99,6 +99,6 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
     private static class ViewHolder {
         ImageView teamLogo;
         TextView teamName;
-        ImageView pickTeam;
+        TextView pickTeam;
     }
 }

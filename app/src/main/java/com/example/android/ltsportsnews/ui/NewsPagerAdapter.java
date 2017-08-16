@@ -16,11 +16,22 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(position == 0) {
+
+
+        switch (position) {
+            case 0:
+                return new NewsActivityFragment();
+            case 1:
+                return new FavoriteTeams();
+
+        }
+        return null;
+        /*if(position == 0) {
             return new NewsActivityFragment();
         } else {
             return new FavoriteTeams();
-        }
+        } */
+
     }
 
     @Override

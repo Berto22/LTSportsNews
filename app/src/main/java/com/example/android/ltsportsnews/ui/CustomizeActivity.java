@@ -51,13 +51,13 @@ public class CustomizeActivity extends AppCompatActivity {
 
         teamList = new ArrayList<SportsTeams>();
 
-        teamList.add(new SportsTeams("Arizona Cardinals", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Atlanta Falcons", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Baltimore Ravens", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Buffalo Bills", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Carolina Panthers", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Chicago Bears", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Cincinnati Bengals", R.drawable.arizona_cardinals));
+        teamList.add(new SportsTeams("Arizona Cardinals", R.drawable.falconslogo3));
+        teamList.add(new SportsTeams("Atlanta Falcons", R.drawable.falconslogo3));
+        teamList.add(new SportsTeams("Baltimore Ravens", R.drawable.falconslogo3));
+        teamList.add(new SportsTeams("Buffalo Bills", R.drawable.falconslogo3));
+        teamList.add(new SportsTeams("Carolina Panthers", R.drawable.falconslogo3));
+        teamList.add(new SportsTeams("Chicago Bears", R.drawable.falconslogo3));
+        teamList.add(new SportsTeams("Cincinnati Bengals", R.drawable.falconslogo3));
         teamList.add(new SportsTeams("Cleveland Browns", R.drawable.arizona_cardinals));
         teamList.add(new SportsTeams("Dallas Cowboys", R.drawable.arizona_cardinals));
         teamList.add(new SportsTeams("Denver Broncos", R.drawable.arizona_cardinals));
@@ -90,48 +90,6 @@ public class CustomizeActivity extends AppCompatActivity {
         //listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         final ContentValues values = new ContentValues();
-
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                myTeam = new ArrayList<Integer>();
-                SportsTeams selectedTeam = teamList.get(i);
-
-                int pos = listView.getPositionForView(view);
-
-                String teamName = selectedTeam.getmTeam();
-                int logoImageResourceId = selectedTeam.getmImageResourceId();
-
-                //Timber.d("team " + teamName + " logo " + logoImageResourceId);
-                Log.d(TAG, "team " + teamName + "logo " + logoImageResourceId + " position " + pos );
-
-                if(selectedTeam.ismSelected() && !myTeam.contains(pos)){
-                    selectedTeam.setmSelected(false);
-                    //FetchNewsUtil.addMyTeam(context,teamName, logoImageResourceId);
-                    values.put(ItemsContract.TeamsEntry.COLUMN_TEAM_NAME, teamName);
-                    values.put(ItemsContract.TeamsEntry.LOGO_IMAGE_RESOURCE_ID, logoImageResourceId);
-                    getContentResolver().insert(ItemsContract.TeamsEntry.CONTENT_URI, values);
-                    myTeam.add(i, pos);
-
-
-                }
-                else {
-                    selectedTeam.setmSelected(true);
-                    //FetchNewsUtil.removeMyTeam(context,teamName, logoImageResourceId);
-                    //myTeam.remove(pos);
-                    String stringLogo = Integer.toString(logoImageResourceId);
-                    String[] selectionArgs = {teamName};
-                    getContentResolver().delete(ItemsContract.TeamsEntry.CONTENT_URI, ItemsContract.TeamsEntry._ID + "=?",
-                            selectionArgs);
-                }
-
-                teamList.set(i, selectedTeam);
-
-                mSportsTeamAdapter.updateMyTeam(teamList);
-
-
-            }
-        }); */
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -176,4 +134,51 @@ public class CustomizeActivity extends AppCompatActivity {
 
     }
 
+    /*@Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("team", favTeams);
+    } */
 }
+
+/*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                myTeam = new ArrayList<Integer>();
+                SportsTeams selectedTeam = teamList.get(i);
+
+                int pos = listView.getPositionForView(view);
+
+                String teamName = selectedTeam.getmTeam();
+                int logoImageResourceId = selectedTeam.getmImageResourceId();
+
+                //Timber.d("team " + teamName + " logo " + logoImageResourceId);
+                Log.d(TAG, "team " + teamName + "logo " + logoImageResourceId + " position " + pos );
+
+                if(selectedTeam.ismSelected() && !myTeam.contains(pos)){
+                    selectedTeam.setmSelected(false);
+                    //FetchNewsUtil.addMyTeam(context,teamName, logoImageResourceId);
+                    values.put(ItemsContract.TeamsEntry.COLUMN_TEAM_NAME, teamName);
+                    values.put(ItemsContract.TeamsEntry.LOGO_IMAGE_RESOURCE_ID, logoImageResourceId);
+                    getContentResolver().insert(ItemsContract.TeamsEntry.CONTENT_URI, values);
+                    myTeam.add(i, pos);
+
+
+                }
+                else {
+                    selectedTeam.setmSelected(true);
+                    //FetchNewsUtil.removeMyTeam(context,teamName, logoImageResourceId);
+                    //myTeam.remove(pos);
+                    String stringLogo = Integer.toString(logoImageResourceId);
+                    String[] selectionArgs = {teamName};
+                    getContentResolver().delete(ItemsContract.TeamsEntry.CONTENT_URI, ItemsContract.TeamsEntry._ID + "=?",
+                            selectionArgs);
+                }
+
+                teamList.set(i, selectedTeam);
+
+                mSportsTeamAdapter.updateMyTeam(teamList);
+
+
+            }
+        }); */

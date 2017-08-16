@@ -7,22 +7,23 @@
 
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitCenter"
+        android:layout_gravity="start"/>
 
     <TextView
         android:id="@+id/team_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"/>
+        android:layout_weight="2"
+        android:layout_gravity="start"
+        android:paddingLeft="16dp"/>
 
-    <ImageView
+    <TextView
         android:id="@+id/picker_star"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_gravity="end"
         android:background="@drawable/add_symbol"/>
 

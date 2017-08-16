@@ -15,6 +15,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.Preference;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ import java.util.Set;
 import static android.R.attr.button;
 import static android.R.attr.resource;
 import static com.example.android.ltsportsnews.R.id.container;
+import static java.security.AccessController.getContext;
 
 
 public class FavoriteTeams extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -116,6 +118,16 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         favTeam = sharedPreferences.getStringSet(s, new HashSet<String>());
+
+        favTeamArray = new ArrayList<String>(favTeam);
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        preferences.registerOnSharedPreferenceChangeListener(this);
+
     }
 
     @Override

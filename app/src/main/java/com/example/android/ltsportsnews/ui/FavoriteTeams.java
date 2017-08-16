@@ -41,6 +41,7 @@ import java.util.Set;
 
 import static android.R.attr.button;
 import static android.R.attr.resource;
+import static android.os.Build.VERSION_CODES.M;
 import static com.example.android.ltsportsnews.R.id.container;
 import static java.security.AccessController.getContext;
 
@@ -75,6 +76,7 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
         favTeam = preferences.getStringSet("team", new HashSet<String>());
 
         favTeamArray = new ArrayList<String>(favTeam);
+
 
     }
 
@@ -117,10 +119,15 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        favTeam = sharedPreferences.getStringSet(s, new HashSet<String>());
+        Set<String> favTeamUpdate = sharedPreferences.getStringSet(s, new HashSet<String>());
 
-        favTeamArray = new ArrayList<String>(favTeam);
-        mRecyclerView.setAdapter(adapter);
+        //favTeamArray = new ArrayList<String>(favTeamUpdate);
+        ArrayList<String> updatedData = new ArrayList<String>(favTeamUpdate);
+
+        MyTeamAdapter adapter2 = new MyTeamAdapter(getContext(), updatedData);
+        mRecyclerView.setAdapter(adapter2);
+
+
     }
 
     @Override
@@ -176,6 +183,12 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
                 super(view);
                 teamName = (TextView)view.findViewById(R.id.myTeam_textView);
             }
+        }
+
+        private void updateMyTeamAdapter(ArrayList<String> myTeam) {
+            this.myTeam = myTeam;
+
+            notifyDataSetChanged();
         }
     }
 

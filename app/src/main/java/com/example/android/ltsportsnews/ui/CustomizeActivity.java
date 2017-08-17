@@ -87,7 +87,7 @@ public class CustomizeActivity extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.customize_listView);
         mSportsTeamAdapter = new SportsTeamAdapter(getApplicationContext(), teamList);
         listView.setAdapter(mSportsTeamAdapter);
-        //listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         final ContentValues values = new ContentValues();
 
@@ -95,7 +95,8 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String key = "team";
-                SportsTeams selectedTeam = teamList.get(i);
+                //SportsTeams selectedTeam = teamList.get(i);
+                SportsTeams selectedTeam = (SportsTeams)adapterView.getItemAtPosition(i);
                 String teamName = selectedTeam.getmTeam();
 
                 if(!favTeams.contains(teamName)) {
@@ -104,6 +105,8 @@ public class CustomizeActivity extends AppCompatActivity {
                 }else {
                     favTeams.remove(teamName);
                 }
+
+                //mSportsTeamAdapter.updateMyTeam(teamList);
 
                 SharedPreferences pref = getSharedPreferences("myTeam", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();

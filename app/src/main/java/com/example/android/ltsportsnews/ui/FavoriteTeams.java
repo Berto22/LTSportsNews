@@ -119,13 +119,16 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        Set<String> favTeamUpdate = sharedPreferences.getStringSet(s, new HashSet<String>());
+        //Set<String> favTeamUpdate = sharedPreferences.getStringSet(s, new HashSet<String>());
+        favTeam = sharedPreferences.getStringSet(s, new HashSet<String>());
 
-        //favTeamArray = new ArrayList<String>(favTeamUpdate);
-        ArrayList<String> updatedData = new ArrayList<String>(favTeamUpdate);
+        favTeamArray = new ArrayList<String>(favTeam);
+        //ArrayList<String> updatedData = new ArrayList<String>(favTeamUpdate);
 
-        MyTeamAdapter adapter2 = new MyTeamAdapter(getContext(), updatedData);
-        mRecyclerView.setAdapter(adapter2);
+        adapter.updateMyTeamAdapter(favTeamArray);
+
+        //MyTeamAdapter adapter2 = new MyTeamAdapter(getContext(), updatedData);
+        //mRecyclerView.setAdapter(adapter2);
 
 
     }
@@ -138,9 +141,15 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
+        //preferences.unregisterOnSharedPreferenceChangeListener(this);
         getActivity().getSharedPreferences("team", 0).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     public class MyTeamAdapter extends RecyclerView.Adapter<MyTeamAdapter.MyTeamViewHolder> {

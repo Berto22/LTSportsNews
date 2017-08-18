@@ -69,7 +69,6 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
         Log.d(TAG, "adapter set size " + teamSetSize);
 
         if(team.contains(teams.get(position).getmTeam())) {
-            //viewHolder.pickTeam.setImageResource(R.drawable.check_symbol);
             viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);
 
         } else {

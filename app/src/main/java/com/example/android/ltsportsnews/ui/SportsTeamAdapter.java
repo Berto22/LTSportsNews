@@ -28,6 +28,7 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
     public String TAG = SportsTeamAdapter.class.getSimpleName();
     private Context mContext;
     private ArrayList<SportsTeams> teams;
+    private String selectedItem;
 
     public SportsTeamAdapter(Context context, ArrayList<SportsTeams> teams) {
         super(context, 0, teams);
@@ -59,6 +60,7 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
 
         viewHolder.teamName.setText(currentTeam.getmTeam());
 
+
         SharedPreferences preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
 
         Set<String> team = preferences.getStringSet("team", new HashSet<String>());
@@ -66,26 +68,14 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
         int teamSetSize = team.size();
         Log.d(TAG, "adapter set size " + teamSetSize);
 
-        if(team.contains(currentTeam.getmTeam())) {
+        if(team.contains(teams.get(position).getmTeam())) {
             //viewHolder.pickTeam.setImageResource(R.drawable.check_symbol);
             viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);
+
         } else {
-            //viewHolder.pickTeam.setImageResource(R.drawable.add_symbol);
             viewHolder.pickTeam.setBackgroundResource(R.drawable.add_symbol);
         }
 
-
-        /*if(currentTeam.ismSelected())
-            viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);
-
-        else
-            viewHolder.pickTeam.setBackgroundResource(R.drawable.add_symbol); */
-
-        //viewHolder.pickTeam.setChecked(currentTeam.ismSelected());
-
-        /*if(currentTeam.ismSelected()) {
-            viewHolder.pickTeam.setChecked(true);
-        } */
 
         return convertView;
     }

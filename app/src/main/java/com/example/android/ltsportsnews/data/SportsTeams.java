@@ -7,7 +7,7 @@ package com.example.android.ltsportsnews.data;
 public class SportsTeams {
     private String mTeam;
     private int mImageResourceId;
-    //boolean mSelected = false;
+    boolean mSelected = false;
 
     public SportsTeams (String team, int imageResourceId) {
         mTeam = team;
@@ -30,11 +30,11 @@ public class SportsTeams {
         this.mImageResourceId = mImageResourceId;
     }
 
-    /*public void setmSelected(boolean mSelected) {
+    public void setmSelected(boolean mSelected) {
         this.mSelected = mSelected;
     }
 
     public boolean ismSelected() {
         return mSelected;
-    } */
+    }
 }

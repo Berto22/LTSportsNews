@@ -37,6 +37,7 @@ public class CustomizeActivity extends AppCompatActivity {
     private static ArrayList<SportsTeams> teamList;
     private static ArrayList<Integer> myTeam;
     private static Context context;
+    private SharedPreferences pref;
 
     Set<String> favTeams;
     //private static String[] myTeam;
@@ -46,6 +47,8 @@ public class CustomizeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customize_activity);
+
+        pref = getSharedPreferences("myTeam", MODE_PRIVATE);
 
         favTeams = new HashSet<String>();
 
@@ -99,23 +102,33 @@ public class CustomizeActivity extends AppCompatActivity {
                 SportsTeams selectedTeam = (SportsTeams)adapterView.getItemAtPosition(i);
                 String teamName = selectedTeam.getmTeam();
 
-                if(!favTeams.contains(teamName)) {
-                    favTeams.add(teamName);
+                selectedTeam.setmSelected(true);
+                Set<String> favSet = pref.getStringSet(key, new HashSet<String>());
+
+
+
+                if(!favSet.contains(teamName)) {
+                    favSet.add(teamName);
+                    //selectedTeam.setmSelected(true);
 
                 }else {
-                    favTeams.remove(teamName);
+                    favSet.remove(teamName);
+                    //selectedTeam.setmSelected(false);
                 }
 
-                //mSportsTeamAdapter.updateMyTeam(teamList);
+                mSportsTeamAdapter.updateMyTeam(teamList);
 
-                SharedPreferences pref = getSharedPreferences("myTeam", MODE_PRIVATE);
+
+                //SharedPreferences pref = getSharedPreferences("myTeam", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putStringSet(key, favTeams);
+                editor.putStringSet(key, favSet);
 
                 editor.commit();
 
 
-                mSportsTeamAdapter.updateMyTeam(teamList);
+
+
+                //mSportsTeamAdapter.updateMyTeam(teamList);
 
                 //String[] teamArray = favTeams.toArray(new String[favTeams.size()]);
                 Iterator<String> iterator = favTeams.iterator();

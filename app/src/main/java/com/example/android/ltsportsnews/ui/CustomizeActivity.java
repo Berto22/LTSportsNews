@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static android.system.Os.remove;
+
 /**
  * Created by berto on 8/3/2017.
  */
@@ -38,8 +41,10 @@ public class CustomizeActivity extends AppCompatActivity {
     private static ArrayList<Integer> myTeam;
     private static Context context;
     private SharedPreferences pref;
+    private static final String KEY = "team";
 
     Set<String> favTeams;
+    private Set<String> favSet;
     //private static String[] myTeam;
 
 
@@ -49,43 +54,44 @@ public class CustomizeActivity extends AppCompatActivity {
         setContentView(R.layout.customize_activity);
 
         pref = getSharedPreferences("myTeam", MODE_PRIVATE);
+        favSet = pref.getStringSet(KEY, new HashSet<String>());
 
-        favTeams = new HashSet<String>();
+        //favTeams = new HashSet<String>();
 
         teamList = new ArrayList<SportsTeams>();
 
-        teamList.add(new SportsTeams("Arizona Cardinals", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Atlanta Falcons", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Baltimore Ravens", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Buffalo Bills", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Carolina Panthers", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Chicago Bears", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Cincinnati Bengals", R.drawable.falconslogo3));
-        teamList.add(new SportsTeams("Cleveland Browns", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Dallas Cowboys", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Denver Broncos", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Detroit Lions", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Green Bay Packers", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Houston Texans", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Indianapolis Colts", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Jacksonville Jaguars", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Kansas City Chiefs", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Los Angeles Chargers", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Los Angeles Rams", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Miami Dolphins", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Minnesota Vikings", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("New England Patriots", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("New Orleans Saints", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("New York Giants", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("New York Jets", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Oakland Raiders", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Philadelphia Eagles", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Pittsburgh Steelers", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("San Francisco 49ers", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Seattle Seahawks", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Tampa Bay Buccaneers", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Tennessee Titans", R.drawable.arizona_cardinals));
-        teamList.add(new SportsTeams("Washington Redskins", R.drawable.arizona_cardinals));
+        teamList.add(new SportsTeams(getString(R.string.arizona_cardinals), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.atlanta_falcons), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.baltimore_ravens), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.buffalo_bills), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.carolina_panthers), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.chicago_bears), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.cincinnati_bengals), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.clevaland_browns), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.dallas_cowboys), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.denver_broncos), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.detroit_lions), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.green_bay_packers), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.houston_texans), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.indianapolis_colts), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.jacksonville_jaguars), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.kansas_city_chiefs), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.los_angeles_chargers), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.los_angeles_rams), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.miami_dolphins), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.minnesota_vikings), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.new_england_patriots), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.new_orleans_saints), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.new_york_giants), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.new_york_jets), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.oakland_raiders), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.philadelphia_eagles), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.pittsburgh_steelers), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.san_francisco_49ers), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.seattle_seahawks), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.tampa_bay_buccanneers), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.tennessee_titans), R.drawable.falconslogo3));
+        teamList.add(new SportsTeams(getString(R.string.washington_redskins), R.drawable.falconslogo3));
 
         listView = (ListView)findViewById(R.id.customize_listView);
         mSportsTeamAdapter = new SportsTeamAdapter(getApplicationContext(), teamList);
@@ -97,13 +103,14 @@ public class CustomizeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String key = "team";
+                //String key = "team";
                 //SportsTeams selectedTeam = teamList.get(i);
                 SportsTeams selectedTeam = (SportsTeams)adapterView.getItemAtPosition(i);
                 String teamName = selectedTeam.getmTeam();
 
-                selectedTeam.setmSelected(true);
-                Set<String> favSet = pref.getStringSet(key, new HashSet<String>());
+                //pref = getSharedPreferences("myTeam", MODE_PRIVATE);
+                //selectedTeam.setmSelected(true);
+                //favSet = pref.getStringSet(key, new HashSet<String>());
 
 
 
@@ -116,28 +123,31 @@ public class CustomizeActivity extends AppCompatActivity {
                     //selectedTeam.setmSelected(false);
                 }
 
-                mSportsTeamAdapter.updateMyTeam(teamList);
+                //favSet.addAll(favTeams);
+
+                //mSportsTeamAdapter.updateMyTeam(teamList);
 
 
                 //SharedPreferences pref = getSharedPreferences("myTeam", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putStringSet(key, favSet);
+
+                SharedPreferences.Editor editor = pref.edit().clear();
+                editor.putStringSet(KEY, favSet);
 
                 editor.commit();
 
 
 
 
-                //mSportsTeamAdapter.updateMyTeam(teamList);
+                mSportsTeamAdapter.updateMyTeam(teamList);
 
                 //String[] teamArray = favTeams.toArray(new String[favTeams.size()]);
-                Iterator<String> iterator = favTeams.iterator();
+                Iterator<String> iterator = favSet.iterator();
                 while (iterator.hasNext()) {
                     String tm = iterator.next();
                     Log.d(TAG, "iterator " + tm);
                 }
 
-                Set<String> prefSet = pref.getStringSet(key, new HashSet<String>());
+                Set<String> prefSet = pref.getStringSet(KEY, new HashSet<String>());
 
                 int tmSize = prefSet.size();
 

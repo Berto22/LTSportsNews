@@ -68,8 +68,11 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         recyclerView.setAdapter(newsAdapter);
 
 
-
     }
+
+
+
+
 
     private void refresh() {
         getActivity().startService(new Intent(getActivity().getApplicationContext(), NewsUpdaterService.class));

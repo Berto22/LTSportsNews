@@ -9,4 +9,41 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="arizona_cardinals">Arizona Cardinals</string>
+    <string name="atlanta_falcons">Atlanta Falcons</string>
+    <string name="baltimore_ravens">Baltimore Ravens</string>
+    <string name="buffalo_bills">Buffalo Bills</string>
+    <string name="carolina_panthers">Carolina Panthers</string>
+    <string name="chicago_bears">Chicago Bears</string>
+    <string name="cincinnati_bengals">Cincinnati Bengals</string>
+    <string name="clevaland_browns">Cleveland Browns</string>
+    <string name="dallas_cowboys">Dallas Cowboys</string>
+    <string name="denver_broncos">Denver Broncos</string>
+    <string name="detroit_lions">Detroit Lions</string>
+    <string name="green_bay_packers">Green Bay Packers</string>
+    <string name="houston_texans">Houston Texans</string>
+    <string name="indianapolis_colts">Indianapolis Colts</string>
+    <string name="jacksonville_jaguars">Jacksonville Jaguars</string>
+    <string name="kansas_city_chiefs">Kansas City Chiefs</string>
+    <string name="los_angeles_chargers">Los Angeles Chargers</string>
+    <string name="los_angeles_rams">Los Angeles Rams</string>
+    <string name="miami_dolphins">Miami Dolphins</string>
+    <string name="minnesota_vikings">Minnesota Vikings</string>
+    <string name="new_england_patriots">New England Patriots</string>
+    <string name="new_orleans_saints">New Orleans Saints</string>
+    <string name="new_york_giants">New York Giants</string>
+    <string name="new_york_jets">New York Jets</string>
+    <string name="oakland_raiders">Oakland Raiders</string>
+    <string name="philadelphia_eagles">Philadelphia Eagles</string>
+    <string name="pittsburgh_steelers">Pittsburgh Steelers</string>
+    <string name="san_francisco_49ers">San Francisco 49ers</string>
+    <string name="seattle_seahawks">Seattle Seahawks</string>
+    <string name="tampa_bay_buccanneers">Tampa Bay Buccaneers</string>
+    <string name="tennessee_titans">Tennessee Titans</string>
+    <string name="washington_redskins">Washington Redskins</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <!-- widget -->
+    <string name="loading_news" translatable="true">Loading news</string>
 </resources>

@@ -2,7 +2,9 @@ package com.example.android.ltsportsnews.ui;
 
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,6 +80,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return count;
     }
 
+    /*@Override
+    public void onClick(View view) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri newsUri = Uri.parse(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL));
+                Intent websIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+                mContext.startActivity(websIntent);
+            }
+        });
+
+    } */
+
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //@BindView(R.id.title_textView)
@@ -104,6 +119,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             publishDateTextView =(TextView)view.findViewById(R.id.publish_date_textView);
             articleImageView = (ImageView)view.findViewById(R.id.article_imageView);
             descriptionTextView = (TextView)view.findViewById(R.id.description_textView);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Uri newsUri = Uri.parse(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL));
+                    Intent websIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+                    mContext.startActivity(websIntent);
+                }
+            });
+
         }
 
         @Override

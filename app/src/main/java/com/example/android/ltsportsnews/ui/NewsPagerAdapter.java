@@ -26,11 +26,6 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
 
         }
         return null;
-        /*if(position == 0) {
-            return new NewsActivityFragment();
-        } else {
-            return new FavoriteTeams();
-        } */
 
     }
 

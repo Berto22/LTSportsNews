@@ -4,18 +4,21 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.Binder;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.ItemsContract;
+import com.example.android.ltsportsnews.ui.FavoriteTeams;
 
 /**
  * Created by berto on 8/25/2017.
  */
 
 public class NewsWidgetRemoteViewService extends RemoteViewsService {
+    public String TAG = NewsWidgetRemoteViewService.class.getSimpleName();
     private final String[] NEW_COLUMNS = {
             ItemsContract.NewsItemsEntry._ID,
             ItemsContract.NewsItemsEntry.COLUMN_TITLE,
@@ -83,8 +86,13 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
                 String title = data.getString(INDEX_TITLE);
                 String author = data.getString(INDEX_AUTHOR);
 
+                Log.d(TAG, title + "///////// " + author);
+
                 views.setTextViewText(R.id.news_widget_title, title);
                 views.setTextViewText(R.id.news_widget_author, author);
+
+                Intent fillIntent = new Intent();
+                views.setOnClickFillInIntent(R.id.news_widget_detail, fillIntent);
 
                 return views;
             }

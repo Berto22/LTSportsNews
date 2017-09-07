@@ -1,10 +1,19 @@
 package com.example.android.ltsportsnews.ui;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -123,9 +132,24 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Uri newsUri = Uri.parse(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL));
                     Intent websIntent = new Intent(Intent.ACTION_VIEW, newsUri);
                     mContext.startActivity(websIntent);
+
+                    String articleUrl = mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL);
+
+                    /*ArticleWebViewFragment awf = new ArticleWebViewFragment();
+                    Bundle extras = new Bundle();
+                    extras.putString("url", articleUrl);
+                    awf.setArguments(extras);
+                    FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.add(R.id.webView, awf);
+                    ft.commit(); */
+
+
+
                 }
             });
 

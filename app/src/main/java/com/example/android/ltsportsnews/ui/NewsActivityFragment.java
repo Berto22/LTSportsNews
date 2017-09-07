@@ -1,7 +1,9 @@
 package com.example.android.ltsportsnews.ui;
 
 import android.app.LoaderManager;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -13,6 +15,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,11 +26,13 @@ import android.view.ViewGroup;
 import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.ItemsContract;
 import com.example.android.ltsportsnews.remote.NewsUpdaterService;
+import com.example.android.ltsportsnews.widget.NewsWidgetProvider;
 
 public class NewsActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private NewsAdapter newsAdapter;
     private static RecyclerView recyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public NewsActivityFragment() {
         // Required empty public constructor
@@ -41,6 +47,9 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState == null) {
             refresh();
         }
+
+
+
     }
 
     @Override
@@ -62,21 +71,30 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mSwipeRefreshLayout =(SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(newsAdapter);
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(recyclerView.getChildCount() > 0) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
 
     }
-
-
 
 
 
     private void refresh() {
         getActivity().startService(new Intent(getActivity().getApplicationContext(), NewsUpdaterService.class));
     }
+
+
 
 
     private boolean mIsRefreshing = false;
@@ -101,6 +119,12 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         newsAdapter.setmCursor(cursor);
+
+        Context context = getContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName componentName = new ComponentName(context, NewsWidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_list);
         DatabaseUtils.dumpCursor(cursor);
 
     }

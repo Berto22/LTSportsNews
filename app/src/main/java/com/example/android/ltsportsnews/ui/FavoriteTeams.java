@@ -115,8 +115,7 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Button button = (Button)view.findViewById(R.id.fav_button);
-        FloatingActionButton editButton = (FloatingActionButton)view.findViewById(R.id.edit_fab);
+        //FloatingActionButton editButton = (FloatingActionButton)view.findViewById(R.id.edit_fab);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.myTeams_recyclerView);
 
         adapter = new MyTeamAdapter(getContext(), favTeamArray);
@@ -126,25 +125,16 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
 
 
 
-        editButton.setOnClickListener(new View.OnClickListener() {
+        /*editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //getFragmentManager().beginTransaction().replace(android.R.id.content, new SelectFavsFragment()).commit();
                 Intent intent = new Intent(getActivity(), CustomizeActivity.class );
                 getActivity().startActivity(intent);
 
-                //Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.slide_x);
-                //getActivity().getWindow().setEnterTransition(transition);
-                /*Slide slide = new Slide(Gravity.LEFT);
-                slide.setInterpolator(AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in));
-                //getActivity().getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-                getActivity().getWindow().setEnterTransition(new Slide()); */
 
             }
-        });
-
-        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.slide_x);
-        getActivity().getWindow().setEnterTransition(transition);
+        }); */
 
 
         mRecyclerView.setAdapter(adapter);

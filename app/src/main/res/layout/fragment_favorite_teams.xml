@@ -2,24 +2,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/favorite_container">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/myTeams_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true">
 
     </android.support.v7.widget.RecyclerView>
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/edit_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@drawable/edit_icon"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="80dp"
-        app:layout_behavior="com.example.android.ltsportsnews.ui.FabScrollBehavior"/>
+        android:layout_marginBottom="16dp"
+        app:layout_anchor="@id/container"/> -->
 
 </android.support.design.widget.CoordinatorLayout>
 <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

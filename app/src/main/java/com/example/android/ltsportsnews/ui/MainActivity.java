@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -67,6 +68,38 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        final FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.edit_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //getFragmentManager().beginTransaction().replace(android.R.id.content, new SelectFavsFragment()).commit();
+                Intent intent = new Intent(MainActivity.this, CustomizeActivity.class );
+                startActivity(intent);
+
+
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(position == 1) {
+                    fab.show();
+                } else {
+                    fab.hide();
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         /*RecyclerView recl = (RecyclerView) findViewById(R.id.recyclerView);
 
         DividerItemDecoration horizontalDecor = new DividerItemDecoration(recl.getContext(),

@@ -20,10 +20,16 @@ import android.support.v7.preference.Preference;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,6 +67,7 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     private MyTeamAdapter adapter;
     private Set<String> favTeam;
     private SharedPreferences preferences;
+    private String team1;
 
 
     public FavoriteTeams() {
@@ -118,14 +125,27 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //getFragmentManager().beginTransaction().replace(android.R.id.content, new SelectFavsFragment()).commit();
                 Intent intent = new Intent(getActivity(), CustomizeActivity.class );
                 getActivity().startActivity(intent);
+
+                //Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.slide_x);
+                //getActivity().getWindow().setEnterTransition(transition);
+                /*Slide slide = new Slide(Gravity.LEFT);
+                slide.setInterpolator(AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in));
+                //getActivity().getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+                getActivity().getWindow().setEnterTransition(new Slide()); */
+
             }
         });
+
+        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.slide_x);
+        getActivity().getWindow().setEnterTransition(transition);
+
 
         mRecyclerView.setAdapter(adapter);
 
@@ -225,132 +245,164 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
                     String name = myTeam.get(position);
                     SportsTeams sportsTeams = new SportsTeams(name, 2);
                     if(name.equals(getResources().getString(R.string.arizona_cardinals))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo2);
+                        holder.teamLogo.setImageResource(R.drawable.arizona_cardinals);
                         holder.teamName.setText("ARI");
+                        holder.teamName.setContentDescription(getString(R.string.arizona_cardinals));
                         holder.backdrop.setBackgroundResource(R.color.arizona);
                     } else if (name.equals(getResources().getString(R.string.atlanta_falcons))){
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.atlanta_falcons);
                         holder.teamName.setText("ATL");
+                        holder.teamName.setContentDescription(getString(R.string.atlanta_falcons));
                         holder.backdrop.setBackgroundResource(R.color.atlanta);
                     } else if(name.equals(getResources().getString(R.string.baltimore_ravens))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.baltimore_ravens);
                         holder.teamName.setText("BAL");
+                        holder.teamName.setContentDescription(getString(R.string.baltimore_ravens));
                         holder.backdrop.setBackgroundResource(R.color.baltimore);
                     }else if(name.equals(getResources().getString(R.string.buffalo_bills))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.buffalo_bills);
                         holder.teamName.setText("BUF");
+                        holder.teamName.setContentDescription(getString(R.string.buffalo_bills));
                         holder.backdrop.setBackgroundResource(R.color.buffalo);
                     }else if(name.equals(getResources().getString(R.string.carolina_panthers))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.carolina_panthers);
                         holder.teamName.setText("CAR");
+                        holder.teamName.setContentDescription(getString(R.string.carolina_panthers));
                         holder.backdrop.setBackgroundResource(R.color.panthers);
                     }else if(name.equals(getResources().getString(R.string.chicago_bears))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.chicago_bears);
                         holder.teamName.setText("CHI");
+                        holder.teamName.setContentDescription(getString(R.string.chicago_bears));
                         holder.backdrop.setBackgroundResource(R.color.chicago);
                     }else if(name.equals(getResources().getString(R.string.cincinnati_bengals))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.cincinnati_bengals);
                         holder.teamName.setText("CIN");
+                        holder.teamName.setContentDescription(getString(R.string.cincinnati_bengals));
                         holder.backdrop.setBackgroundResource(R.color.bengals);
                     }else if(name.equals(getResources().getString(R.string.clevaland_browns))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.cleveland_browns);
                         holder.teamName.setText("CLE");
+                        holder.teamName.setContentDescription(getString(R.string.clevaland_browns));
                         holder.backdrop.setBackgroundResource(R.color.browns);
                     }else if(name.equals(getResources().getString(R.string.dallas_cowboys))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.dallas_cowboys);
                         holder.teamName.setText("DAL");
+                        holder.teamName.setContentDescription(getString(R.string.dallas_cowboys));
                         holder.backdrop.setBackgroundResource(R.color.dallas);
                     }else if(name.equals(getResources().getString(R.string.denver_broncos))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.denver_broncos);
                         holder.teamName.setText("DEN");
+                        holder.teamName.setContentDescription(getString(R.string.denver_broncos));
                         holder.backdrop.setBackgroundResource(R.color.denver);
                     }else if(name.equals(getResources().getString(R.string.detroit_lions))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.detroit_lions);
                         holder.teamName.setText("DET");
+                        holder.teamName.setContentDescription(getString(R.string.detroit_lions));
                         holder.backdrop.setBackgroundResource(R.color.lions);
                     }else if(name.equals(getResources().getString(R.string.green_bay_packers))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.greenbay_packers);
                         holder.teamName.setText("GB");
+                        holder.teamName.setContentDescription(getString(R.string.green_bay_packers));
                         holder.backdrop.setBackgroundResource(R.color.packers);
                     }else if(name.equals(getResources().getString(R.string.houston_texans))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.houston_texans);
                         holder.teamName.setText("HOU");
+                        holder.teamName.setContentDescription(getString(R.string.houston_texans));
                         holder.backdrop.setBackgroundResource(R.color.texans);
                     }else if(name.equals(getResources().getString(R.string.indianapolis_colts))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.indianapolis_colts);
                         holder.teamName.setText("IND");
+                        holder.teamName.setContentDescription(getString(R.string.indianapolis_colts));
                         holder.backdrop.setBackgroundResource(R.color.colts);
                     }else if(name.equals(getResources().getString(R.string.jacksonville_jaguars))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.jacksonville_jaguars);
                         holder.teamName.setText("JAX");
+                        holder.teamName.setContentDescription(getString(R.string.jacksonville_jaguars));
                         holder.backdrop.setBackgroundResource(R.color.jaguars);
                     }else if(name.equals(getResources().getString(R.string.kansas_city_chiefs))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.kansascity_chiefs);
                         holder.teamName.setText("KS");
+                        holder.teamName.setContentDescription(getString(R.string.kansas_city_chiefs));
                         holder.backdrop.setBackgroundResource(R.color.chiefs);
                     }else if(name.equals(getResources().getString(R.string.los_angeles_chargers))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.losangeles_chargers);
                         holder.teamName.setText("LAC");
+                        holder.teamName.setContentDescription(getString(R.string.los_angeles_chargers));
                         holder.backdrop.setBackgroundResource(R.color.chargers);
                     }else if(name.equals(getResources().getString(R.string.los_angeles_rams))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.losangeles_rams);
                         holder.teamName.setText("LAR");
+                        holder.teamName.setContentDescription(getString(R.string.los_angeles_rams));
                         holder.backdrop.setBackgroundResource(R.color.rams);
                     }else if(name.equals(getResources().getString(R.string.miami_dolphins))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.miami_dolphins);
                         holder.teamName.setText("MIA");
+                        holder.teamName.setContentDescription(getString(R.string.miami_dolphins));
                         holder.backdrop.setBackgroundResource(R.color.dolphins);
                     }else if(name.equals(getResources().getString(R.string.minnesota_vikings))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.minnesota_vikings);
                         holder.teamName.setText("MIN");
+                        holder.teamName.setContentDescription(getString(R.string.minnesota_vikings));
                         holder.backdrop.setBackgroundResource(R.color.vikings);
                     }else if(name.equals(getResources().getString(R.string.new_england_patriots))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.newenglang_patriots);
                         holder.teamName.setText("NE");
+                        holder.teamName.setContentDescription(getString(R.string.new_england_patriots));
                         holder.backdrop.setBackgroundResource(R.color.patriots);
                     }else if(name.equals(getResources().getString(R.string.new_orleans_saints))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.neworleans_saints);
                         holder.teamName.setText("NO");
+                        holder.teamName.setContentDescription(getString(R.string.new_orleans_saints));
                         holder.backdrop.setBackgroundResource(R.color.saints);
                     }else if(name.equals(getResources().getString(R.string.new_york_giants))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.newyork_giants);
                         holder.teamName.setText("NYG");
+                        holder.teamName.setContentDescription(getString(R.string.new_york_giants));
                         holder.backdrop.setBackgroundResource(R.color.giants);
                     }else if(name.equals(getResources().getString(R.string.new_york_jets))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.newyork_jets);
                         holder.teamName.setText("NYJ");
+                        holder.teamName.setContentDescription(getString(R.string.new_york_jets));
                         holder.backdrop.setBackgroundResource(R.color.jets);
                     }else if(name.equals(getResources().getString(R.string.oakland_raiders))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.oakland_raiders);
                         holder.teamName.setText("OAK");
+                        holder.teamName.setContentDescription(getString(R.string.oakland_raiders));
                         holder.backdrop.setBackgroundResource(R.color.raider);
                     }else if(name.equals(getResources().getString(R.string.philadelphia_eagles))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.philadelphia_eagles);
                         holder.teamName.setText("PHI");
+                        holder.teamName.setContentDescription(getString(R.string.philadelphia_eagles));
                         holder.backdrop.setBackgroundResource(R.color.eagles);
                     }else if(name.equals(getResources().getString(R.string.pittsburgh_steelers))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.pittsburgh_steelers);
                         holder.teamName.setText("PIT");
+                        holder.teamName.setContentDescription(getString(R.string.pittsburgh_steelers));
                         holder.backdrop.setBackgroundResource(R.color.steelers);
                     }else if(name.equals(getResources().getString(R.string.san_francisco_49ers))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.sanfrancisco_49ers);
                         holder.teamName.setText("SF");
+                        holder.teamName.setContentDescription(getString(R.string.san_francisco_49ers));
                         holder.backdrop.setBackgroundResource(R.color.sanfran49ers);
                     }else if(name.equals(getResources().getString(R.string.seattle_seahawks))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.seattle_seahawks);
                         holder.teamName.setText("SEA");
+                        holder.teamName.setContentDescription(getString(R.string.seattle_seahawks));
                         holder.backdrop.setBackgroundResource(R.color.seahawks);
                     }else if(name.equals(getResources().getString(R.string.tampa_bay_buccanneers))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.tampabay_bucs);
                         holder.teamName.setText("TB");
+                        holder.teamName.setContentDescription(getString(R.string.tampa_bay_buccanneers));
                         holder.backdrop.setBackgroundResource(R.color.bucs);
                     }else if(name.equals(getResources().getString(R.string.tennessee_titans))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.tennessee_titans);
                         holder.teamName.setText("TEN");
+                        holder.teamName.setContentDescription(getString(R.string.tennessee_titans));
                         holder.backdrop.setBackgroundResource(R.color.titans);
                     }else if(name.equals(getResources().getString(R.string.washington_redskins))) {
-                        holder.teamLogo.setImageResource(R.drawable.falconslogo3);
+                        holder.teamLogo.setImageResource(R.drawable.washington_redskins);
                         holder.teamName.setText("WSH");
+                        holder.teamName.setContentDescription(getString(R.string.washington_redskins));
                         holder.backdrop.setBackgroundResource(R.color.redskins);
                     }
 

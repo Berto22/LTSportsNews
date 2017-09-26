@@ -30,6 +30,8 @@ import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.ItemsContract;
 import com.example.android.ltsportsnews.remote.NewsUpdaterService;
 
+import java.util.logging.Handler;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -38,6 +40,7 @@ import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
     public static String TAG = MainActivity.class.toString();
+    private static int SPLASH_TIME_OUT = 4000;
     //private NewsPagerAdapter newsPagerAdapter;
     //private ViewPager viewPager;
     //@SuppressWarnings("WeakerAccess")
@@ -52,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getSupportActionBar().hide();
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle(R.string.app_name);

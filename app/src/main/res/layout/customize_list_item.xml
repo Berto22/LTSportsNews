@@ -19,6 +19,7 @@
         android:layout_weight="2"
         android:layout_gravity="start"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         android:paddingLeft="16dp"/>
 
     <TextView

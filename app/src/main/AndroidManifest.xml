@@ -33,6 +33,13 @@
             android:name=".ui.CustomizeActivity"
             android:label="Edit" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"/>
+
         <receiver android:name=".widget.NewsWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

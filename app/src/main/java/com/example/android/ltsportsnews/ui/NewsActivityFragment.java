@@ -27,6 +27,9 @@ import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.ItemsContract;
 import com.example.android.ltsportsnews.remote.NewsUpdaterService;
 import com.example.android.ltsportsnews.widget.NewsWidgetProvider;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class NewsActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -62,9 +65,16 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        MobileAds.initialize(getContext(), "ca-app-pub-1822618669019557/2990058229");
         View rootView = inflater.inflate(R.layout.fragment_news_activity, container, false);
 
-        // Inflate the layout for this fragment
+        // Create ad request
+        AdView adView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("3A1D3943584BE41A8DFCD807D62E70DD")
+                .build();
+        adView.loadAd(adRequest);
         return rootView;
     }
 
@@ -94,8 +104,19 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         getActivity().startService(new Intent(getActivity().getApplicationContext(), NewsUpdaterService.class));
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().registerReceiver(mRefreshingReceiver,
+                new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
+        updateRefreshingUi();
+    }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(mRefreshingReceiver);
+    }
 
     private boolean mIsRefreshing = false;
 
@@ -104,9 +125,14 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         public void onReceive(Context context, Intent intent) {
             if(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
                 mIsRefreshing = intent.getBooleanExtra(NewsUpdaterService.EXTRA_REFRESHING, false);
+                updateRefreshingUi();
             }
         }
     };
+
+    private void updateRefreshingUi() {
+        mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {

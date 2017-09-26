@@ -8,6 +8,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- viewpagers -->
+    <string name="news">News</string>
+    <string name="my_teams">My Teams</string>
+
     <string name="action_settings">Settings</string>
     <string name="arizona_cardinals">Arizona Cardinals</string>
     <string name="atlanta_falcons">Atlanta Falcons</string>
@@ -41,8 +45,14 @@
     <string name="tampa_bay_buccanneers">Tampa Bay Buccaneers</string>
     <string name="tennessee_titans">Tennessee Titans</string>
     <string name="washington_redskins">Washington Redskins</string>
+
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
+    <!-- adView -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- widget -->
     <string name="loading_news" translatable="true">Loading news</string>

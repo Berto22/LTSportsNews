@@ -1,20 +1,10 @@
-<!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.android.ltsportsnews.ui.FavoriteTeams"> -->
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--<Button
-        android:id="@+id/fav_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/add_my_teams"/> -->
-
-    <!--<android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/myTeams_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,8 +21,8 @@
         android:layout_marginBottom="80dp"
         app:layout_behavior="com.example.android.ltsportsnews.ui.FabScrollBehavior"/>
 
-</android.support.design.widget.CoordinatorLayout>  -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</android.support.design.widget.CoordinatorLayout>
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -47,7 +37,6 @@
             android:id="@+id/myTeams_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </android.support.v7.widget.RecyclerView>
 
     </android.support.design.widget.CoordinatorLayout>
@@ -63,3 +52,40 @@
         app:layout_behavior="com.example.android.ltsportsnews.ui.FabScrollBehavior"/>
 
 </FrameLayout>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myTeams_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/edit_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/edit_icon"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/edit"
+            app:layout_behavior="com.example.android.ltsportsnews.ui.FabScrollBehavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+
+</FrameLayout> -->

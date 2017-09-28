@@ -59,6 +59,8 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             Uri articleUri = Uri.parse(url);
             Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
             startActivity(websIntent);
+        } else {
+            return;
         }
 
 

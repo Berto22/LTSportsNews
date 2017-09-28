@@ -7,14 +7,19 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.remote.NewsUpdaterService;
+import com.example.android.ltsportsnews.ui.MainActivity;
 import com.example.android.ltsportsnews.ui.NewsActivityFragment;
+
+import static android.os.Build.VERSION_CODES.N;
 
 /**
  * Implementation of App Widget functionality.
@@ -34,6 +39,7 @@ public class NewsWidgetProvider extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     } */
 
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
@@ -41,7 +47,10 @@ public class NewsWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.news_widget_provider);
             views.setViewVisibility(R.id.empty_widget, View.GONE);
 
-            Intent intent = new Intent(context, NewsActivityFragment.class);
+            //Uri url = Uri.parse(NewsWidgetRemoteViewService.articleUrl);
+            //Intent websIntent = new Intent(Intent.ACTION_VIEW, url);
+
+            Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             views.setPendingIntentTemplate(R.id.news_widget_list, pendingIntent);
 

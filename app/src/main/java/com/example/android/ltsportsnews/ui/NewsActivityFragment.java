@@ -31,6 +31,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import static com.example.android.ltsportsnews.R.id.container;
+
 public class NewsActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private NewsAdapter newsAdapter;
@@ -49,6 +51,14 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
 
         if (savedInstanceState == null) {
             refresh();
+        }
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        if(bundle != null) {
+            String url = bundle.getString("articleUrl");
+            Uri articleUri = Uri.parse(url);
+            Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+            startActivity(websIntent);
         }
 
 
@@ -107,6 +117,14 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onStart() {
         super.onStart();
+        getActivity().registerReceiver(mRefreshingReceiver,
+                new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
+        updateRefreshingUi();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getActivity().registerReceiver(mRefreshingReceiver,
                 new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
         updateRefreshingUi();

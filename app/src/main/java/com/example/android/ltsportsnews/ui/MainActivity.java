@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         final FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.edit_fab);
+        fab.hide();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        /*Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            String url = bundle.getString("articleUrl");
+            Uri articleUri = Uri.parse(url);
+            Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+            startActivity(websIntent);
+        } */
         /*RecyclerView recl = (RecyclerView) findViewById(R.id.recyclerView);
 
         DividerItemDecoration horizontalDecor = new DividerItemDecoration(recl.getContext(),

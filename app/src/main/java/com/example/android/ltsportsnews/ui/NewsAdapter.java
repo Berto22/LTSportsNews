@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -27,6 +28,10 @@ import android.widget.TextView;
 import com.example.android.ltsportsnews.R;
 import com.example.android.ltsportsnews.data.ItemsContract;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +76,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.titleTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE));
         Timber.d(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE));
         holder.authorTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_AUTHOR));
-        holder.publishDateTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_PUBLISH_DATE));
+
+        SimpleDateFormat outPutFormat = new SimpleDateFormat("MMM dd,yyyy");
+        Date publishedDate = parsePublishedDate();
+
+        String stringDate = outPutFormat.format(publishedDate);
+
+        holder.publishDateTextView.setText(stringDate);
 
         Picasso.with(mContext).load(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_IMAGE_URL))
                 .fit()
@@ -81,6 +92,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
 
     }
+
+    private Date parsePublishedDate() {
+        try {
+            String date = mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_PUBLISH_DATE);
+            SimpleDateFormat inPutFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
+
+            return inPutFormat.parse(date);
+
+        } catch (ParseException e) {
+            Log.e(TAG, e.getMessage());
+            return new Date();
+        }
+    }
+
 
     @Override
     public int getItemCount() {

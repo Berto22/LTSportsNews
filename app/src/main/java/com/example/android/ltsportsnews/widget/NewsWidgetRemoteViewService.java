@@ -31,6 +31,7 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
     private static final int INDEX_AUTHOR = 2;
     private static final int INDEX_ARTICLE_URL = 3;
 
+
     public NewsWidgetRemoteViewService() {
         super();
     }
@@ -85,6 +86,7 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.news_widget_detail);
                 String title = data.getString(INDEX_TITLE);
                 String author = data.getString(INDEX_AUTHOR);
+                String articleUrl = data.getString(INDEX_ARTICLE_URL);
 
                 Log.d(TAG, title + "///////// " + author);
 
@@ -92,6 +94,7 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
                 views.setTextViewText(R.id.news_widget_author, author);
 
                 Intent fillIntent = new Intent();
+                fillIntent.putExtra("articleUrl", articleUrl);
                 views.setOnClickFillInIntent(R.id.news_widget_detail, fillIntent);
 
                 return views;

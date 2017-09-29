@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,13 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.text.ParseException;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.example.android.ltsportsnews.R.id.container;
 
 public class NewsActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-
+    public String TAG = NewsActivityFragment.class.getSimpleName();
     private NewsAdapter newsAdapter;
     private static RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -53,16 +57,6 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             refresh();
         }
 
-        Bundle bundle = getActivity().getIntent().getExtras();
-        if(bundle != null) {
-            String url = bundle.getString("articleUrl");
-            Uri articleUri = Uri.parse(url);
-            Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-            startActivity(websIntent);
-        } else {
-            return;
-        }
-
 
 
     }
@@ -70,6 +64,7 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
 
         getActivity().getLoaderManager().initLoader(0, null, this);
     }
@@ -108,6 +103,22 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             }
         });
 
+        Bundle bundle = getActivity().getIntent().getExtras();
+        if(bundle != null) {
+            String url = bundle.getString("articleUrl");
+            Uri articleUri = null;
+            if(url != null) {
+                articleUri = Uri.parse(url);
+                Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+                startActivity(websIntent);
+            } else {
+                Log.d(TAG, "Problem opening link");
+            }
+
+        } else {
+            return;
+        }
+
     }
 
 
@@ -124,13 +135,14 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         updateRefreshingUi();
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(mRefreshingReceiver,
                 new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
+        refresh();
         updateRefreshingUi();
-    }
+    } */
 
     @Override
     public void onStop() {

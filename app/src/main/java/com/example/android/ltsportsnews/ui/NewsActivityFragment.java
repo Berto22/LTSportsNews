@@ -57,6 +57,22 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             refresh();
         }
 
+        Bundle bundle = getActivity().getIntent().getExtras();
+        if(bundle != null) {
+            String url = bundle.getString("articleUrl");
+            Uri articleUri = null;
+            if(url != null) {
+                articleUri = Uri.parse(url);
+                Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
+                startActivity(websIntent);
+            } else {
+                Log.d(TAG, "Problem opening link");
+            }
+
+        } else {
+            return;
+        }
+
 
 
     }
@@ -74,6 +90,8 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
                              Bundle savedInstanceState) {
         MobileAds.initialize(getContext(), "ca-app-pub-1822618669019557/2990058229");
         View rootView = inflater.inflate(R.layout.fragment_news_activity, container, false);
+
+
 
         // Create ad request
         AdView adView = (AdView) rootView.findViewById(R.id.adView);
@@ -103,21 +121,6 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             }
         });
 
-        Bundle bundle = getActivity().getIntent().getExtras();
-        if(bundle != null) {
-            String url = bundle.getString("articleUrl");
-            Uri articleUri = null;
-            if(url != null) {
-                articleUri = Uri.parse(url);
-                Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-                startActivity(websIntent);
-            } else {
-                Log.d(TAG, "Problem opening link");
-            }
-
-        } else {
-            return;
-        }
 
     }
 

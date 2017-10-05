@@ -46,6 +46,8 @@
     <string name="tennessee_titans">Tennessee Titans</string>
     <string name="washington_redskins">Washington Redskins</string>
 
+    <string name="num_columns">3</string>
+
     <string name="edit">Edit</string>
     <string name="done">Done</string>
     <string name="appwidget_text">EXAMPLE</string>

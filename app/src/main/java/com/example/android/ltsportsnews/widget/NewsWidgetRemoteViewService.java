@@ -38,7 +38,7 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        //return null;
+
         return new RemoteViewsFactory() {
             private Cursor data = null;
             @Override
@@ -59,7 +59,6 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
                         null,
                         null);
                 Binder.restoreCallingIdentity(identityToken);
-                DatabaseUtils.dumpCursor(data);
 
             }
 
@@ -87,8 +86,6 @@ public class NewsWidgetRemoteViewService extends RemoteViewsService {
                 String title = data.getString(INDEX_TITLE);
                 String author = data.getString(INDEX_AUTHOR);
                 String articleUrl = data.getString(INDEX_ARTICLE_URL);
-
-                Log.d(TAG, title + "///////// " + author);
 
                 views.setTextViewText(R.id.news_widget_title, title);
                 views.setTextViewText(R.id.news_widget_author, author);

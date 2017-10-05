@@ -79,17 +79,7 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
-
-        preferences.registerOnSharedPreferenceChangeListener(this);
-
-        favTeam = preferences.getStringSet("team", new HashSet<String>());
-
-        favTeamArray = new ArrayList<String>(favTeam); */
-
-        //preferences.registerOnSharedPreferenceChangeListener(this);
         favTeamArray = new ArrayList<String>();
-
 
     }
 
@@ -115,70 +105,35 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //FloatingActionButton editButton = (FloatingActionButton)view.findViewById(R.id.edit_fab);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.myTeams_recyclerView);
 
         adapter = new MyTeamAdapter(getContext(), favTeamArray);
         int numColumns = 3;
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numColumns));
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
-        /*editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //getFragmentManager().beginTransaction().replace(android.R.id.content, new SelectFavsFragment()).commit();
-                Intent intent = new Intent(getActivity(), CustomizeActivity.class );
-                getActivity().startActivity(intent);
-
-
-            }
-        }); */
-
 
         mRecyclerView.setAdapter(adapter);
-
 
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        //Set<String> favTeamUpdate = sharedPreferences.getStringSet(s, new HashSet<String>());
         if(s.equals("team")) {
             sharedPreferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
             favTeam = sharedPreferences.getStringSet(s, new HashSet<String>());
 
             ArrayList <String> favTeamArray1 = new ArrayList<String>(favTeam);
-            //ArrayList<String> updatedData = new ArrayList<String>(favTeamUpdate);
-
             adapter.updateMyTeamAdapter(favTeamArray1);
         }
-        /*favTeam = sharedPreferences.getStringSet(s, new HashSet<String>());
-
-        favTeamArray = new ArrayList<String>(favTeam);
-        //ArrayList<String> updatedData = new ArrayList<String>(favTeamUpdate);
-
-        adapter.updateMyTeamAdapter(favTeamArray); */
-
-        //MyTeamAdapter adapter2 = new MyTeamAdapter(getContext(), updatedData);
-        //mRecyclerView.setAdapter(adapter2);
-
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //preferences.registerOnSharedPreferenceChangeListener(this);
-        //getActivity().getSharedPreferences("team", 0).registerOnSharedPreferenceChangeListener(this);
-        //getActivity().getSharedPreferences("team", 0).unregisterOnSharedPreferenceChangeListener(this);
-        //adapter.updateMyTeamAdapter(favTeamArray);
         favTeam = getActivity().getSharedPreferences("myTeam", Context.MODE_PRIVATE).getStringSet("team", new HashSet<String>());
         favTeamArray = new ArrayList<String>(favTeam);
         Collections.sort(favTeamArray);
         adapter.updateMyTeamAdapter(favTeamArray);
-
 
     }
 
@@ -186,17 +141,13 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     public void onPause() {
         super.onPause();
         preferences.unregisterOnSharedPreferenceChangeListener(this);
-        //getActivity().getSharedPreferences("team", 0).unregisterOnSharedPreferenceChangeListener(this);
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //getActivity().getSharedPreferences("team", 0).unregisterOnSharedPreferenceChangeListener(this);
-
     }
-
-
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
@@ -230,10 +181,8 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
 
             if(!myTeam.isEmpty()) {
                 for ( int i = 0; i < myTeam.size(); i++ ) {
-                    //holder.teamLogo.setImageResource(R.drawable.falconslogo3);
-                    //holder.teamName.setText(myTeam.get(position));
                     String name = myTeam.get(position);
-                    SportsTeams sportsTeams = new SportsTeams(name, 2);
+                    //SportsTeams sportsTeams = new SportsTeams(name, 2);
                     if(name.equals(getResources().getString(R.string.arizona_cardinals))) {
                         holder.teamLogo.setImageResource(R.drawable.arizona_cardinals);
                         holder.teamName.setText("ARI");

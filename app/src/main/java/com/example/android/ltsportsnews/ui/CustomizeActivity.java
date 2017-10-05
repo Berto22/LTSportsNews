@@ -48,8 +48,6 @@ public class CustomizeActivity extends AppCompatActivity {
 
     Set<String> favTeams;
     private Set<String> favSet;
-    //private static String[] myTeam;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +73,6 @@ public class CustomizeActivity extends AppCompatActivity {
         pref = getSharedPreferences("myTeam", MODE_PRIVATE);
         favSet = pref.getStringSet(KEY, new HashSet<String>());
 
-        //favTeams = new HashSet<String>();
 
         teamList = new ArrayList<SportsTeams>();
 
@@ -122,60 +119,25 @@ public class CustomizeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //String key = "team";
-                //SportsTeams selectedTeam = teamList.get(i);
                 SportsTeams selectedTeam = (SportsTeams)adapterView.getItemAtPosition(i);
                 String teamName = selectedTeam.getmTeam();
 
-                //pref = getSharedPreferences("myTeam", MODE_PRIVATE);
-                //selectedTeam.setmSelected(true);
-                //favSet = pref.getStringSet(key, new HashSet<String>());
-
-
-
                 if(!favSet.contains(teamName)) {
                     favSet.add(teamName);
-                    //selectedTeam.setmSelected(true);
 
                 }else {
                     favSet.remove(teamName);
-                    //selectedTeam.setmSelected(false);
+
                 }
-
-                //favSet.addAll(favTeams);
-
-                //mSportsTeamAdapter.updateMyTeam(teamList);
-
-
-                //SharedPreferences pref = getSharedPreferences("myTeam", MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = pref.edit().clear();
                 editor.putStringSet(KEY, favSet);
 
                 editor.commit();
 
-
-
-
                 mSportsTeamAdapter.updateMyTeam(teamList);
-
-                //String[] teamArray = favTeams.toArray(new String[favTeams.size()]);
-                Iterator<String> iterator = favSet.iterator();
-                while (iterator.hasNext()) {
-                    String tm = iterator.next();
-                    Log.d(TAG, "iterator " + tm);
-                }
-
-                Set<String> prefSet = pref.getStringSet(KEY, new HashSet<String>());
-
-                int tmSize = prefSet.size();
-
-                Log.d(TAG, "Set size " + tmSize);
-
-
             }
         });
-
 
     }
 
@@ -189,51 +151,5 @@ public class CustomizeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*@Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("team", favTeams);
-    } */
 }
 
-/*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                myTeam = new ArrayList<Integer>();
-                SportsTeams selectedTeam = teamList.get(i);
-
-                int pos = listView.getPositionForView(view);
-
-                String teamName = selectedTeam.getmTeam();
-                int logoImageResourceId = selectedTeam.getmImageResourceId();
-
-                //Timber.d("team " + teamName + " logo " + logoImageResourceId);
-                Log.d(TAG, "team " + teamName + "logo " + logoImageResourceId + " position " + pos );
-
-                if(selectedTeam.ismSelected() && !myTeam.contains(pos)){
-                    selectedTeam.setmSelected(false);
-                    //FetchNewsUtil.addMyTeam(context,teamName, logoImageResourceId);
-                    values.put(ItemsContract.TeamsEntry.COLUMN_TEAM_NAME, teamName);
-                    values.put(ItemsContract.TeamsEntry.LOGO_IMAGE_RESOURCE_ID, logoImageResourceId);
-                    getContentResolver().insert(ItemsContract.TeamsEntry.CONTENT_URI, values);
-                    myTeam.add(i, pos);
-
-
-                }
-                else {
-                    selectedTeam.setmSelected(true);
-                    //FetchNewsUtil.removeMyTeam(context,teamName, logoImageResourceId);
-                    //myTeam.remove(pos);
-                    String stringLogo = Integer.toString(logoImageResourceId);
-                    String[] selectionArgs = {teamName};
-                    getContentResolver().delete(ItemsContract.TeamsEntry.CONTENT_URI, ItemsContract.TeamsEntry._ID + "=?",
-                            selectionArgs);
-                }
-
-                teamList.set(i, selectedTeam);
-
-                mSportsTeamAdapter.updateMyTeam(teamList);
-
-
-            }
-        }); */

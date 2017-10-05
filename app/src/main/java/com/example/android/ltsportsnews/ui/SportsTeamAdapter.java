@@ -39,7 +39,6 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //return super.getView(position, convertView, parent);
         SportsTeams currentTeam = getItem(position);
         ViewHolder viewHolder;
         if(convertView == null) {
@@ -48,8 +47,6 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
             viewHolder.teamLogo = (ImageView)convertView.findViewById(R.id.logo_image);
             viewHolder.teamName = (TextView)convertView.findViewById(R.id.team_name);
             viewHolder.pickTeam = (TextView) convertView.findViewById(R.id.picker_star);
-
-            //viewHolder.pickTeam.setOnCheckedChangeListener((CustomizeActivity) mContext);
 
             convertView.setTag(viewHolder);
         } else {
@@ -64,9 +61,6 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
         SharedPreferences preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
 
         Set<String> team = preferences.getStringSet("team", new HashSet<String>());
-
-        int teamSetSize = team.size();
-        Log.d(TAG, "adapter set size " + teamSetSize);
 
         if(team.contains(teams.get(position).getmTeam())) {
             viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);

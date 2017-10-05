@@ -70,8 +70,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        String title = mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE);
-        Log.d(TAG, "TITLE " + title);
 
         holder.titleTextView.setText(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE));
         Timber.d(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_TITLE));
@@ -96,7 +94,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private Date parsePublishedDate() {
         try {
             String date = mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_PUBLISH_DATE);
-            SimpleDateFormat inPutFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
+            Log.d(TAG, "date " + date);
+            SimpleDateFormat inPutFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss");
 
             return inPutFormat.parse(date);
 
@@ -115,19 +114,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
         return count;
     }
-
-    /*@Override
-    public void onClick(View view) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri newsUri = Uri.parse(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL));
-                Intent websIntent = new Intent(Intent.ACTION_VIEW, newsUri);
-                mContext.startActivity(websIntent);
-            }
-        });
-
-    } */
 
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -163,19 +149,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                     Uri newsUri = Uri.parse(mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL));
                     Intent websIntent = new Intent(Intent.ACTION_VIEW, newsUri);
                     mContext.startActivity(websIntent);
-
-                    String articleUrl = mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_ARTICLE_URL);
-
-                    /*ArticleWebViewFragment awf = new ArticleWebViewFragment();
-                    Bundle extras = new Bundle();
-                    extras.putString("url", articleUrl);
-                    awf.setArguments(extras);
-                    FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.add(R.id.webView, awf);
-                    ft.commit(); */
-
-
 
                 }
             });

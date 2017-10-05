@@ -42,15 +42,6 @@ import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
     public static String TAG = MainActivity.class.toString();
-    private static int SPLASH_TIME_OUT = 4000;
-    //private NewsPagerAdapter newsPagerAdapter;
-    //private ViewPager viewPager;
-    //@SuppressWarnings("WeakerAccess")
-    //@BindView(R.id.recyclerView)
-    //RecyclerView mRecyclerView;
-
-
-    NewsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +66,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getFragmentManager().beginTransaction().replace(android.R.id.content, new SelectFavsFragment()).commit();
                 Intent intent = new Intent(MainActivity.this, CustomizeActivity.class );
                 startActivity(intent);
-
 
             }
         });
@@ -102,87 +91,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        /*Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
-            String url = bundle.getString("articleUrl");
-            Uri articleUri = Uri.parse(url);
-            Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-            startActivity(websIntent);
-        } */
-        /*RecyclerView recl = (RecyclerView) findViewById(R.id.recyclerView);
-
-        DividerItemDecoration horizontalDecor = new DividerItemDecoration(recl.getContext(),
-                DividerItemDecoration.HORIZONTAL);
-        Drawable horizontalDivider = ContextCompat.getDrawable(getApplicationContext(),
-                R.drawable.horizontal_divider);
-        horizontalDecor.setDrawable(horizontalDivider);
-        recl.addItemDecoration(horizontalDecor);
-
-        adapter = new NewsAdapter(getApplicationContext(), null);
-
-        if (savedInstanceState == null) {
-            refresh();
-        }
-
-        getLoaderManager().initLoader(0, null, this);
-        int numColumns = 1;
-        //final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        //recl.setLayoutManager(layoutManager);
-        recl.setLayoutManager(new GridLayoutManager(this, numColumns));
-
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recl.setAdapter(adapter); */
-
-
-
     }
-
-    /*private void refresh() {
-        startService(new Intent(this, NewsUpdaterService.class));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerReceiver(mRefreshingReceiver, new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
-    }
-
-    private boolean mIsRefreshing = false;
-
-    private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
-                mIsRefreshing = intent.getBooleanExtra(NewsUpdaterService.EXTRA_REFRESHING, false);
-            }
-        }
-    };
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                ItemsContract.NewsItemsEntry.CONTENT_URI,
-                ItemsContract.NewsItemsEntry.NEWS_COLUMNS.toArray(new String[]{}),
-                null, null, ItemsContract.NewsItemsEntry.DEFAULT_SORT);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        //adapter.setHasStableIds(true);
-        //adapter = new NewsAdapter(this);
-        //adapter.setHasStableIds(true);
-        //mRecyclerView.setAdapter(adapter);
-        adapter.setmCursor(cursor);
-        Log.d(TAG, "MMMMMMMM");
-        DatabaseUtils.dumpCursor(cursor);
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        adapter.setmCursor(null);
-
-    } */
 }

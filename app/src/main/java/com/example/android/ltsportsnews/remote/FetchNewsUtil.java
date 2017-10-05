@@ -42,7 +42,6 @@ public class FetchNewsUtil {
 
         try {
             jsonArrayResponse = fetchNews(Config.BASE_URL);
-            Log.d(TAG, "SSSSS" + jsonArrayResponse);
         } catch (IOException e) {
             Timber.e(TAG, "Error fetching news", e);
             return null;
@@ -56,20 +55,6 @@ public class FetchNewsUtil {
             Timber.e(TAG, "Error parsing JSON");
         }
 
-
-        // Parse JSON
-        /*try {
-            JSONTokener tokener = new JSONTokener(jsonArrayResponse);
-            Object val = tokener.nextValue();
-            if (!(val instanceof JSONArray)) {
-                throw new JSONException("Expected JSONArray");
-            }
-            return (JSONArray) val;
-
-        } catch (JSONException e) {
-            Timber.e(TAG, "Error parsing items", e);
-        } */
-
         return null;
     }
 
@@ -79,7 +64,6 @@ public class FetchNewsUtil {
                 .url(url)
                 .build();
         Response response = client.newCall(request).execute();
-        Log.d(TAG, "HHHHH" + response);
         return response.body().string();
     }
 

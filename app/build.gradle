@@ -1,12 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'berto1'
+            keyPassword 'woods2409'
+            storeFile file('C:/Users/berto/Desktop/androidstudio/LTSportsNews/keyfile.jks')
+            storePassword 'meadows2409'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.example.android.ltsportsnews"
         minSdkVersion 15
         targetSdkVersion 26
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -15,22 +24,25 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+        }
+        buildType {
         }
     }
-    /*lintOptions {
-        checkReleaseBuilds false;
-        abortOnError false;
-    } */
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:25.2.0'
+    //compile 'com.android.support:appcompat-v7:26.1.0'
+    //compile 'com.android.support:design:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.android.support:cardview-v7:21.0.3'
@@ -44,4 +56,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-ads:10.2.4'
     compile 'com.google.firebase:firebase-ads:10.2.1'
+    compile 'com.android.support:multidex:1.0.1'
+    //compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    //compile 'com.android.support:design:26.0.0-alpha1'
 }

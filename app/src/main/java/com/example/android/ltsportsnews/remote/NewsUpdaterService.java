@@ -55,7 +55,6 @@ public class NewsUpdaterService extends IntentService {
         sendBroadcast(new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
 
         ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
-        //Vector<ContentValues> cVVector = new Vector<ContentValues>();
 
         Uri uri = ItemsContract.NewsItemsEntry.CONTENT_URI;
 
@@ -82,15 +81,7 @@ public class NewsUpdaterService extends IntentService {
                 values.put(ItemsContract.NewsItemsEntry.COLUMN_PUBLISH_DATE, object.getString("publishedAt"));
 
                 cpo.add(ContentProviderOperation.newInsert(uri).withValues(values).build());
-
-                //cVVector.add(values);
-
             }
-
-            //ContentValues[] cvArray = new ContentValues[cVVector.size()];
-            //cVVector.toArray(cvArray);
-            //getContentResolver().bulkInsert(ItemsContract.NewsItemsEntry.CONTENT_URI, cvArray);
-
 
             getContentResolver().applyBatch(ItemsContract.AUTHORITY, cpo);
 

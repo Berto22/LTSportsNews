@@ -19,7 +19,6 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-
         switch (position) {
             case 0:
                 return new NewsActivityFragment();
@@ -38,7 +37,7 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        //return super.getPageTitle(position);
+
         if(position == 0) {
             return "News";
         } else {

@@ -52,10 +52,17 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         super.onCreate(savedInstanceState);
 
         newsAdapter = new NewsAdapter(getActivity(), null);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState == null) {
             refresh();
+
         }
+        getActivity().getLoaderManager().initLoader(0, null, this);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if(bundle != null) {
@@ -66,23 +73,13 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
                 Intent websIntent = new Intent(Intent.ACTION_VIEW, articleUri);
                 startActivity(websIntent);
             } else {
-                Log.d(TAG, "Problem opening link");
+                Log.d(TAG, "Problem opening page");
             }
 
         } else {
             return;
+
         }
-
-
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-        getActivity().getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -90,8 +87,6 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
                              Bundle savedInstanceState) {
         MobileAds.initialize(getContext(), "ca-app-pub-1822618669019557/2990058229");
         View rootView = inflater.inflate(R.layout.fragment_news_activity, container, false);
-
-
 
         // Create ad request
         AdView adView = (AdView) rootView.findViewById(R.id.adView);
@@ -121,11 +116,7 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             }
         });
 
-
     }
-
-
-
     private void refresh() {
         getActivity().startService(new Intent(getActivity().getApplicationContext(), NewsUpdaterService.class));
     }
@@ -137,15 +128,6 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
                 new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
         updateRefreshingUi();
     }
-
-    /*@Override
-    public void onResume() {
-        super.onResume();
-        getActivity().registerReceiver(mRefreshingReceiver,
-                new IntentFilter(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE));
-        refresh();
-        updateRefreshingUi();
-    } */
 
     @Override
     public void onStop() {
@@ -159,7 +141,7 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         @Override
         public void onReceive(Context context, Intent intent) {
             if(NewsUpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
-                mIsRefreshing = intent.getBooleanExtra(NewsUpdaterService.EXTRA_REFRESHING, false);
+                mIsRefreshing = intent.getBooleanExtra(NewsUpdaterService.EXTRA_REFRESHING, true);
                 updateRefreshingUi();
             }
         }
@@ -186,13 +168,11 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
         ComponentName componentName = new ComponentName(context, NewsWidgetProvider.class);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_list);
-        DatabaseUtils.dumpCursor(cursor);
 
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         newsAdapter.setmCursor(null);
-
     }
 }

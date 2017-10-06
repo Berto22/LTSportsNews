@@ -12,8 +12,8 @@ android {
         config1 {
             keyAlias 'Berto2'
             keyPassword 'olecranon22'
-            storeFile file('$rootdir/keystore.jks')
-            //storeFile file('C:/Users/berto/Desktop/androidstudio/LTSportsNews/keystore.jks')
+            //storeFile file('$rootdir/keystore.jks')
+            storeFile file('C:/Users/berto/Desktop/androidstudio/LTSportsNews/keystore.jks')
             storePassword 'scaphoid22'
         }
     }
@@ -63,3 +63,5 @@ dependencies {
     compile 'com.google.firebase:firebase-ads:10.2.1'
     //compile 'com.android.support:multidex:1.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

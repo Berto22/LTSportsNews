@@ -94,9 +94,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private Date parsePublishedDate() {
         try {
             String date = mCursor.getString(ItemsContract.NewsItemsEntry.POSITION_PUBLISH_DATE);
-            Log.d(TAG, "date " + date);
             SimpleDateFormat inPutFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss");
-
             return inPutFormat.parse(date);
 
         } catch (ParseException e) {
@@ -117,25 +115,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //@BindView(R.id.title_textView)
         public TextView titleTextView;
-
-        //@BindView(R.id.author_textView)
         public TextView authorTextView;
-
-        //@BindView(R.id.publish_date_textView)
         public TextView publishDateTextView;
-
-        //@BindView(R.id.article_imageView)
         public ImageView articleImageView;
-
-        //@BindView(R.id.description_textView)
         public TextView descriptionTextView;
 
 
         NewsViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
             titleTextView = (TextView)view.findViewById(R.id.title_textView);
             authorTextView = (TextView)view.findViewById(R.id.author_textView);
             publishDateTextView =(TextView)view.findViewById(R.id.publish_date_textView);

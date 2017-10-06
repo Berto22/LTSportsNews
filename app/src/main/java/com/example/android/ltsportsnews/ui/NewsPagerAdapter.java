@@ -1,5 +1,6 @@
 package com.example.android.ltsportsnews.ui;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,8 +13,11 @@ import com.example.android.ltsportsnews.R;
 
 public class NewsPagerAdapter extends FragmentPagerAdapter {
 
-    public NewsPagerAdapter(FragmentManager fm) {
+    Context mContext;
+
+    public NewsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
+        this.mContext = context;
     }
 
     @Override
@@ -38,10 +42,15 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 
-        if(position == 0) {
-            return "News";
-        } else {
-            return "My Teams";
+        switch (position) {
+            case 0:
+                return mContext.getResources().getString(R.string.news);
+
+            case 1:
+                return mContext.getResources().getString(R.string.my_teams);
+
         }
+
+        return null;
     }
 }

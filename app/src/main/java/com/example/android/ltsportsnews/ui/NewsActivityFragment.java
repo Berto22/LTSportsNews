@@ -1,14 +1,17 @@
 package com.example.android.ltsportsnews.ui;
 
-import android.app.LoaderManager;
+//import android.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.app.LoaderManager;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.CursorLoader;
+//import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.Loader;
+//import android.content.Loader;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
@@ -42,6 +45,7 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
     private NewsAdapter newsAdapter;
     private static RecyclerView recyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private static final String BUNDLE_KEY = "articleUrl";
 
     public NewsActivityFragment() {
         // Required empty public constructor
@@ -62,11 +66,13 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             refresh();
 
         }
-        getActivity().getLoaderManager().initLoader(0, null, this);
+        //getActivity().getLoaderManager().initLoader(0, null, this);
+        getActivity().getSupportLoaderManager().initLoader(0, null, this);
+
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if(bundle != null) {
-            String url = bundle.getString("articleUrl");
+            String url = bundle.getString(BUNDLE_KEY);
             Uri articleUri = null;
             if(url != null) {
                 articleUri = Uri.parse(url);

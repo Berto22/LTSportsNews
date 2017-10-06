@@ -29,6 +29,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static android.provider.Contacts.SettingsColumns.KEY;
+import static android.system.Os.getsockname;
 import static android.system.Os.remove;
 
 /**
@@ -44,7 +46,10 @@ public class CustomizeActivity extends AppCompatActivity {
     private static ArrayList<Integer> myTeam;
     private static Context context;
     private SharedPreferences pref;
-    private static final String KEY = "team";
+    private static final String SET_KEY = "team";
+    //private static final String SET_KEY = context.getResources().getString(R.string.shared_pref_key)
+    private static final String PREF_KEY = "myTeam";
+    //private static final String PREF_KEY = context.getString(R.string.stringSet_key);
 
     Set<String> favTeams;
     private Set<String> favSet;
@@ -70,8 +75,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         });
 
-        pref = getSharedPreferences("myTeam", MODE_PRIVATE);
-        favSet = pref.getStringSet(KEY, new HashSet<String>());
+        pref = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
+        favSet = pref.getStringSet(SET_KEY, new HashSet<String>());
 
 
         teamList = new ArrayList<SportsTeams>();
@@ -131,7 +136,7 @@ public class CustomizeActivity extends AppCompatActivity {
                 }
 
                 SharedPreferences.Editor editor = pref.edit().clear();
-                editor.putStringSet(KEY, favSet);
+                editor.putStringSet(SET_KEY, favSet);
 
                 editor.commit();
 

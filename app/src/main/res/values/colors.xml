@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00796b</color>
-    <color name="colorAccent">#FFFF00</color>
+    <color name="colorAccent">#FF5252</color>
     <color name="backgroundColor">#e0e0e0</color>
     <color name="arizona">#9B2743</color>
     <color name="atlanta">#101820</color>

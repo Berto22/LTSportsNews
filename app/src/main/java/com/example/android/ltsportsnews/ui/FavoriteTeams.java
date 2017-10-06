@@ -68,12 +68,13 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     private Set<String> favTeam;
     private SharedPreferences preferences;
     private String team1;
+    private static final String SET_KEY = "team";
+    private static final String PREF_KEY = "myTeam";
 
 
     public FavoriteTeams() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,11 +90,13 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_favorite_teams, container, false);
 
-        preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
+        //preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
+        preferences = getContext().getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE);
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 
-        favTeam = preferences.getStringSet("team", new HashSet<String>());
+        //favTeam = preferences.getStringSet("team", new HashSet<String>());
+        favTeam = preferences.getStringSet(SET_KEY, new HashSet<String>());
 
         favTeamArray = new ArrayList<String>(favTeam);
 
@@ -117,8 +120,8 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        if(s.equals("team")) {
-            sharedPreferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
+        if(s.equals(SET_KEY)) {
+            sharedPreferences = getContext().getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE);
             favTeam = sharedPreferences.getStringSet(s, new HashSet<String>());
 
             ArrayList <String> favTeamArray1 = new ArrayList<String>(favTeam);
@@ -130,7 +133,7 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
     @Override
     public void onResume() {
         super.onResume();
-        favTeam = getActivity().getSharedPreferences("myTeam", Context.MODE_PRIVATE).getStringSet("team", new HashSet<String>());
+        favTeam = getActivity().getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE).getStringSet(SET_KEY, new HashSet<String>());
         favTeamArray = new ArrayList<String>(favTeam);
         Collections.sort(favTeamArray);
         adapter.updateMyTeamAdapter(favTeamArray);
@@ -182,7 +185,6 @@ public class FavoriteTeams extends Fragment implements SharedPreferences.OnShare
             if(!myTeam.isEmpty()) {
                 for ( int i = 0; i < myTeam.size(); i++ ) {
                     String name = myTeam.get(position);
-                    //SportsTeams sportsTeams = new SportsTeams(name, 2);
                     if(name.equals(getResources().getString(R.string.arizona_cardinals))) {
                         holder.teamLogo.setImageResource(R.drawable.arizona_cardinals);
                         holder.teamName.setText("ARI");

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.app_name);
 
         ButterKnife.bind(this);
-        NewsPagerAdapter newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager());
+        NewsPagerAdapter newsPagerAdapter = new NewsPagerAdapter(getApplicationContext(),getSupportFragmentManager());
         ViewPager viewPager = (ViewPager)findViewById(R.id.container);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         viewPager.setAdapter(newsPagerAdapter);

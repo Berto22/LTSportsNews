@@ -46,7 +46,8 @@
         android:layout_gravity="bottom|end"
         android:src="@drawable/edit_icon"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:contentDescription="@string/edit_favorite_teams"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -20,19 +20,19 @@
         <TextView
             android:id="@+id/title_textView"
             style="@style/NewsItemStyle"
-            tools:text="title"
+            tools:text="@string/title"
             android:padding="4dp"
             android:textStyle="bold"
             android:textSize="24sp"/>
         <TextView
             android:id="@+id/author_textView"
             style="@style/NewsItemStyle"
-            tools:text="author"
+            tools:text="@string/author"
             android:padding="4dp"/>
         <TextView
             android:id="@+id/publish_date_textView"
             style="@style/NewsItemStyle"
-            tools:text="date"
+            tools:text="@string/date"
             android:padding="4dp"/>
         <ImageView
             android:id="@+id/article_imageView"
@@ -41,7 +41,7 @@
         <TextView
             android:id="@+id/description_textView"
             style="@style/NewsItemStyle"
-            tools:text="description"
+            tools:text="@string/description"
             android:textSize="16sp"
             android:padding="4dp"
             android:layout_marginBottom="8dp"/>

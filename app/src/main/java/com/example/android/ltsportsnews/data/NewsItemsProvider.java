@@ -45,7 +45,7 @@ public class NewsItemsProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        //return null;
+
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case NEWS:
@@ -119,7 +119,6 @@ public class NewsItemsProvider extends ContentProvider {
         }
 
         returnCursor.setNotificationUri(getContext().getContentResolver(), uri);
-        //DatabaseUtils.dumpCursor(returnCursor);
 
         return returnCursor;
     }
@@ -133,12 +132,6 @@ public class NewsItemsProvider extends ContentProvider {
 
         switch (match) {
             case NEWS:
-                /*long id = db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, contentValues);
-                if (id > 0) {
-                    returnUri = ItemsContract.NewsItemsEntry.buildNewsUri(id);
-                } else {
-                    throw new SQLException("Failed to insert row into " + uri);
-                }*/
                 db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, contentValues);
                 returnUri = ItemsContract.NewsItemsEntry.CONTENT_URI;
                 break;
@@ -192,7 +185,6 @@ public class NewsItemsProvider extends ContentProvider {
                 int returnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        //normalizeDate(value);
                         long _id = db.insert(ItemsContract.NewsItemsEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             returnCount++;
@@ -209,7 +201,6 @@ public class NewsItemsProvider extends ContentProvider {
                 int teamReturnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        //normalizeDate(value);
                         long _id = db.insert(ItemsContract.TeamsEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             teamReturnCount++;

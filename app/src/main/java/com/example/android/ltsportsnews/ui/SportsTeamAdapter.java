@@ -28,7 +28,8 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
     public String TAG = SportsTeamAdapter.class.getSimpleName();
     private Context mContext;
     private ArrayList<SportsTeams> teams;
-    private String selectedItem;
+    private static final String SET_KEY = "team";
+    private static final String PREF_KEY = "myTeam";
 
     public SportsTeamAdapter(Context context, ArrayList<SportsTeams> teams) {
         super(context, 0, teams);
@@ -58,9 +59,9 @@ public class SportsTeamAdapter extends ArrayAdapter<SportsTeams> {
         viewHolder.teamName.setText(currentTeam.getmTeam());
 
 
-        SharedPreferences preferences = getContext().getSharedPreferences("myTeam", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getContext().getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE);
 
-        Set<String> team = preferences.getStringSet("team", new HashSet<String>());
+        Set<String> team = preferences.getStringSet(SET_KEY, new HashSet<String>());
 
         if(team.contains(teams.get(position).getmTeam())) {
             viewHolder.pickTeam.setBackgroundResource(R.drawable.check_symbol);

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "187425008609",
+    "firebase_url": "https://lt-sports-news.firebaseio.com",
+    "project_id": "lt-sports-news",
+    "storage_bucket": "lt-sports-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187425008609:android:29578206d0a2088b",
+        "android_client_info": {
+          "package_name": "com.example.android.ltsportsnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187425008609-9124nl5d6bihop4rr7uf0t8fshtrp7ic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHb9p73l_wyh8Cb0LZbxKR3QLBPOk3uYA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

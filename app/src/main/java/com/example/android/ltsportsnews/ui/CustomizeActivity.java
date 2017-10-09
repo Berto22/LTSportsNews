@@ -28,8 +28,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static android.provider.Contacts.SettingsColumns.KEY;
 import static android.system.Os.getsockname;
 import static android.system.Os.remove;
 
@@ -43,15 +41,9 @@ public class CustomizeActivity extends AppCompatActivity {
     private static ListView listView;
     private static SportsTeamAdapter mSportsTeamAdapter;
     private static ArrayList<SportsTeams> teamList;
-    private static ArrayList<Integer> myTeam;
-    private static Context context;
     private SharedPreferences pref;
     private static final String SET_KEY = "team";
-    //private static final String SET_KEY = context.getResources().getString(R.string.shared_pref_key)
     private static final String PREF_KEY = "myTeam";
-    //private static final String PREF_KEY = context.getString(R.string.stringSet_key);
-
-    Set<String> favTeams;
     private Set<String> favSet;
 
     @Override

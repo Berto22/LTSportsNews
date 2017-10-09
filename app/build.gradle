@@ -2,18 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        /*config {
-            keyAlias 'berto1'
-            keyPassword 'woods2409'
-            //storeFile file('C:/Users/berto/Desktop/androidstudio/LTSportsNews/keyfile.jks')
-            storeFile file('$rootdir/keyfile.jks')
-            storePassword 'meadows2409'
-        } */
+
         config1 {
             keyAlias 'Berto2'
             keyPassword 'olecranon22'
             storeFile file('$rootdir/keystore.jks')
-            //storeFile file('C:/Users/berto/Desktop/androidstudio/LTSportsNews/keystore.jks')
             storePassword 'scaphoid22'
         }
     }
@@ -59,9 +52,7 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:preference-v7:25.0.0'
     testCompile 'junit:junit:4.12'
-    //compile 'com.google.android.gms:play-services-ads:10.2.4'
     compile 'com.google.firebase:firebase-ads:10.2.1'
-    //compile 'com.android.support:multidex:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -66,7 +66,6 @@ public class NewsActivityFragment extends Fragment implements LoaderManager.Load
             refresh();
 
         }
-        //getActivity().getLoaderManager().initLoader(0, null, this);
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
 
 

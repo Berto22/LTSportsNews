@@ -15,6 +15,7 @@
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,13 +37,12 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name="com.google.android.gms.ads.AdActivity"/>
+        <activity android:name="com.google.android.gms.ads.AdActivity" />
 
         <receiver android:name=".widget.NewsWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.android.ltsportsnews.app.ACTION_DATA_UPDATED"/>
+                <action android:name="com.example.android.ltsportsnews.app.ACTION_DATA_UPDATED" />
             </intent-filter>
 
             <meta-data
@@ -50,9 +50,11 @@
                 android:resource="@xml/news_widget_provider_info" />
         </receiver>
 
-        <service android:name=".widget.NewsWidgetRemoteViewService"
+        <service
+            android:name=".widget.NewsWidgetRemoteViewService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

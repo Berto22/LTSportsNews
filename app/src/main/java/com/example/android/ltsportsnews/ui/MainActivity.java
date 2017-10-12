@@ -11,12 +11,17 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ActionBarOverlayLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +29,8 @@ import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -42,6 +49,8 @@ import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
     public static String TAG = MainActivity.class.toString();
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle(R.string.app_name);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getActionBar().setTitle("closed");
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getActionBar().setTitle("opened");
+                invalidateOptionsMenu();
+            }
+        };
+
 
         ButterKnife.bind(this);
         NewsPagerAdapter newsPagerAdapter = new NewsPagerAdapter(getApplicationContext(),getSupportFragmentManager());
@@ -91,5 +118,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
